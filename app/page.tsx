@@ -1,0 +1,288 @@
+import {
+  ArrowDownToLine,
+  ArrowRight,
+  ArrowUpRight,
+  Github,
+  Instagram,
+  Linkedin,
+  Mail,
+  Mouse,
+} from "lucide-react";
+import Image from "next/image";
+import {
+  SiC,
+  SiCplusplus,
+  SiCss,
+  SiGit,
+  SiGodotengine,
+  SiHtml5,
+  SiJavascript,
+  SiNextdotjs,
+  SiPython,
+  SiReact,
+  SiStreamlit,
+  SiTypescript
+} from "react-icons/si";
+import EducationLogo from "./EducationLogo";
+import HeroScene from "./HeroScene";
+import { sitePath } from "./paths";
+import { portfolioProjects } from "./projectData";
+import ScrollRail from "./ScrollRail";
+import SectionTracker from "./SectionTracker";
+import { currentFocus, education, experiences, profile } from "./siteData";
+
+const navItems = [
+  { label: "Home", href: "#home" },
+  { label: "About", href: "/about" },
+  { label: "Projects", href: "/projects" },
+  { label: "Skills", href: "/skills" },
+  { label: "Contact", href: "/contact" }
+];
+
+const tech = [
+  { name: "Python", icon: <SiPython /> },
+  { name: "C", icon: <SiC /> },
+  { name: "C++", icon: <SiCplusplus /> },
+  { name: "JavaScript", icon: <SiJavascript /> },
+  { name: "TypeScript", icon: <SiTypescript /> },
+  { name: "React", icon: <SiReact /> },
+  { name: "Next.js", icon: <SiNextdotjs /> },
+  { name: "HTML", icon: <SiHtml5 /> },
+  { name: "CSS", icon: <SiCss /> },
+  { name: "Streamlit", icon: <SiStreamlit /> },
+  { name: "Godot", icon: <SiGodotengine /> },
+  { name: "Git/GitHub", icon: <SiGit /> }
+];
+
+const featuredProjects = portfolioProjects.slice(0, 6);
+
+export default function Home() {
+  return (
+    <main className="site-shell">
+      <div className="aurora" aria-hidden="true" />
+      <div className="texture" aria-hidden="true" />
+      <header className="topbar">
+        <a className="logo" href="#home" aria-label="Home">
+          {profile.monogram}
+        </a>
+        <nav className="nav" aria-label="Primary navigation">
+          {navItems.map((item, index) => (
+            <a key={item.label} className={index === 0 ? "active" : ""} href={sitePath(item.href)}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
+        <a className="resume" href={sitePath(profile.resumeHref)} download>
+          <span>Resume</span>
+          <ArrowDownToLine size={16} />
+        </a>
+      </header>
+
+      <ScrollRail />
+      <aside className="side-rail right" aria-label="Social links">
+        <div className="social-stack">
+          <a href={profile.github} aria-label="GitHub" target="_blank" rel="noreferrer">
+            <Github size={20} />
+          </a>
+          <a href={profile.linkedin} aria-label="LinkedIn" target="_blank" rel="noreferrer">
+            <Linkedin size={19} />
+          </a>
+          <a href={profile.instagram} aria-label="Instagram" target="_blank" rel="noreferrer">
+            <Instagram size={19} />
+          </a>
+          <a href={profile.mailto} aria-label="Email">
+            <Mail size={19} />
+          </a>
+        </div>
+        <SectionTracker />
+        <span />
+      </aside>
+
+      <section id="home" className="hero">
+        <div className="hero-copy" data-reveal>
+          <p className="hello"><span /> Hello, I&apos;m</p>
+          <h1>{profile.displayName.toUpperCase()}</h1>
+          <p className="role">{profile.role}</p>
+          <p className="intro">{profile.heroIntro}</p>
+          <div className="cta-row">
+            <a className="button primary" href="#projects">
+              <span>View My Work</span>
+              <ArrowRight size={18} />
+            </a>
+            <a className="button secondary" href={sitePath("/contact")}>
+              <span>Contact Me</span>
+              <Mail size={16} />
+            </a>
+          </div>
+          <div className="focus-strip" data-reveal>
+            {currentFocus.map((item) => (
+              <div className="focus-item" key={item.label}>
+                <span>{item.label}</span>
+                <p>{item.copy}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="hero-visual" data-reveal>
+          <HeroScene />
+          <div className="hero-portrait" aria-label={profile.portraitAlt}>
+            <div className="portrait-orbit" aria-hidden="true" />
+            <div className="portrait-frame">
+              <div className="portrait-placeholder">
+                {profile.portraitSrc ? (
+                  <Image
+                    alt={profile.portraitAlt}
+                    className="portrait-photo"
+                    height={520}
+                    priority
+                    src={sitePath(profile.portraitSrc)}
+                    width={520}
+                  />
+                ) : (
+                  <span>{profile.monogram}</span>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p className="quote"><span /> {profile.heroQuote}</p>
+      </section>
+
+      <section id="about" className="about" data-reveal>
+        <div className="section-title">
+          <span />
+          <h2>01 - biography</h2>
+          <span />
+        </div>
+        <article className="bio-card">
+          <p className="bio-kicker">Biography</p>
+          <h3>A student builder turning technical ideas into usable tools.</h3>
+          <p>
+            Geo Ceff Vinzr H. Gabaisen is a BS Computer Science student at UP Cebu and a DOST-SEI
+            Merit scholar. His strongest work sits where software, data, and interaction meet:
+            playable game systems, local-first dashboards, browser utilities, simulations, and
+            automation tools with explicit guardrails.
+          </p>
+        </article>
+      </section>
+
+      <section id="experience" className="experience" data-reveal>
+        <div className="section-title">
+          <span />
+          <h2>02 - experience</h2>
+          <span />
+        </div>
+        <div className="timeline">
+          {experiences.map((item) => (
+            <article className="timeline-item" key={`${item.role}-${item.company}`} data-reveal>
+              <div className="timeline-dot" aria-hidden="true" />
+              <p className="timeline-period">{item.period}</p>
+              <div>
+                <h3>{item.role}</h3>
+                <p className="timeline-company">{item.company}</p>
+                <p>{item.copy}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="projects" className="projects" data-reveal>
+        <div className="section-title">
+          <span />
+          <h2>03 - featured projects</h2>
+          <span />
+        </div>
+        <div className="project-grid">
+          {featuredProjects.map((project) => (
+            <article className="project-card" key={project.title} data-reveal>
+              <div className="project-heading">
+                <p className="tag">{project.label}</p>
+                <p className="timeline-period">{project.status}</p>
+                <h3>{project.title}</h3>
+              </div>
+              <div
+                className={`project-image ${project.className} ${project.image ? "has-shot" : ""}`}
+                aria-hidden={project.image ? undefined : true}
+              >
+                {project.image ? (
+                  <Image
+                    alt={project.imageAlt}
+                    className="project-shot"
+                    height={420}
+                    src={sitePath(project.image)}
+                    width={640}
+                  />
+                ) : null}
+              </div>
+              <div className="project-details">
+                <p>{project.summary}</p>
+                <div className="stack-list compact">
+                  {project.stack.slice(0, 4).map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
+                </div>
+                <p className="project-highlight"><strong>Evidence:</strong> {project.highlights[0]}</p>
+                <a
+                  href={project.href ?? sitePath("/projects")}
+                  target={project.href ? "_blank" : undefined}
+                  rel={project.href ? "noreferrer" : undefined}
+                >
+                  {project.href ? "Open Project" : "View Details"} <ArrowRight size={17} />
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="skills" className="skills" data-reveal>
+        <div className="skills-heading">
+          <h2>04 - toolkit</h2>
+          <span />
+          <a href={sitePath("/skills")}>
+            View All Skills <ArrowRight size={16} />
+          </a>
+        </div>
+        <div className="tech-row">
+          {tech.map((item) => (
+            <div className="tech-item" key={item.name} data-reveal>
+              {item.icon}
+              <span>{item.name}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="education" className="education" data-reveal>
+        <div className="section-title">
+          <span />
+          <h2>05 - education</h2>
+          <span />
+        </div>
+        <div className="education-grid">
+          {education.map((item) => (
+            <article className={`education-card${item.logo === "GCI" ? " education-card--lab" : ""}`} key={item.school} data-reveal>
+              <EducationLogo alt={`${item.school} education mark`} fallback={item.logo} src={item.logoSrc} />
+              <p className="timeline-period">{item.period}</p>
+              <h3>{item.school}</h3>
+              <p className="timeline-company">{item.degree}</p>
+              <p>{item.details}</p>
+              {item.courseUrl ? (
+                <a className="education-course-link" href={item.courseUrl} rel="noreferrer" target="_blank">
+                  Course syllabus <ArrowUpRight aria-hidden="true" size={15} />
+                </a>
+              ) : null}
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <a className="scroll-cue" href="#projects" aria-label="Scroll to projects">
+        <Mouse size={16} />
+      </a>
+    </main>
+  );
+}

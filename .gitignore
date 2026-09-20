@@ -1,0 +1,11 @@
+.next/
+node_modules/
+out/
+dist/
+.vercel/
+*.log
+*.tsbuildinfo
+.env*
+next-env.d.ts
+HANDOFF.md
+PORTFOLIO_CONTENT_INPUTS.txt
