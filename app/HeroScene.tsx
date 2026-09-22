@@ -21,7 +21,7 @@ export default function HeroScene() {
     host.appendChild(renderer.domElement);
 
     const system = new THREE.Group();
-    system.scale.setScalar(0.86);
+    system.scale.setScalar(0.72);
     const core = new THREE.Group();
     system.add(core);
     scene.add(system);
@@ -37,7 +37,7 @@ export default function HeroScene() {
 
     const ringOne = new THREE.Mesh(new THREE.TorusGeometry(2.28, 0.018, 8, 160), accentLine);
     ringOne.rotation.set(1.18, 0.14, 0.2);
-    const ringTwo = new THREE.Mesh(new THREE.TorusGeometry(2.78, 0.012, 8, 160), ink);
+    const ringTwo = new THREE.Mesh(new THREE.TorusGeometry(2.25, 0.012, 8, 160), ink);
     ringTwo.rotation.set(0.34, 1.12, -0.28);
     system.add(ringOne, ringTwo);
 
@@ -143,6 +143,7 @@ export default function HeroScene() {
 
     const startedAt = performance.now();
     let frame = 0;
+    let visible = true;
     const draw = () => {
       const elapsed = (performance.now() - startedAt) / 1000;
       if (!reducedMotion.matches) {
@@ -170,12 +171,21 @@ export default function HeroScene() {
       }
 
       renderer.render(scene, camera);
-      if (!reducedMotion.matches) frame = window.requestAnimationFrame(draw);
+      if (!reducedMotion.matches && visible) frame = window.requestAnimationFrame(draw);
     };
     draw();
 
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting === visible) return;
+      visible = entry.isIntersecting;
+      if (visible) draw();
+      else window.cancelAnimationFrame(frame);
+    });
+    visibilityObserver.observe(host);
+
     return () => {
       window.cancelAnimationFrame(frame);
+      visibilityObserver.disconnect();
       window.removeEventListener("pointermove", move);
       window.removeEventListener("scroll", setScrollDepth);
       colorScheme.removeEventListener("change", recolor);

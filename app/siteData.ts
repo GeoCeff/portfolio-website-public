@@ -75,10 +75,26 @@ export const education = [
   },
   {
     school: "Bohol Wisdom School",
-    degree: "High School",
-    period: "Secondary Education",
+    degree: "Senior High School | STEM Strand",
+    period: "2023 - 2025",
     details:
-      "Academic foundation before beginning BS Computer Science at the University of the Philippines Cebu.",
+      "Ranked 9th overall in the Grade 12 batch. Served as governor of the Mind Games Club, which focused on chess and other logic games.",
+    logo: "BWS",
+    logoSrc: "/logos/bohol-wisdom-school-logo.png"
+  },
+  {
+    school: "Bohol Wisdom School",
+    degree: "Junior High School",
+    period: "2019 - 2023",
+    details: "",
+    logo: "BWS",
+    logoSrc: "/logos/bohol-wisdom-school-logo.png"
+  },
+  {
+    school: "Bohol Wisdom School",
+    degree: "Elementary School",
+    period: "2013 - 2019",
+    details: "",
     logo: "BWS",
     logoSrc: "/logos/bohol-wisdom-school-logo.png"
   }

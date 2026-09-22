@@ -9,20 +9,7 @@ import {
   Mouse,
 } from "lucide-react";
 import Image from "next/image";
-import {
-  SiC,
-  SiCplusplus,
-  SiCss,
-  SiGit,
-  SiGodotengine,
-  SiHtml5,
-  SiJavascript,
-  SiNextdotjs,
-  SiPython,
-  SiReact,
-  SiStreamlit,
-  SiTypescript
-} from "react-icons/si";
+import { SiLeetcode } from "react-icons/si";
 import EducationLogo from "./EducationLogo";
 import HeroScene from "./HeroScene";
 import { sitePath } from "./paths";
@@ -30,6 +17,7 @@ import { portfolioProjects } from "./projectData";
 import ScrollRail from "./ScrollRail";
 import SectionTracker from "./SectionTracker";
 import { currentFocus, education, experiences, profile } from "./siteData";
+import ToolkitMarquee from "./ToolkitMarquee";
 
 const navItems = [
   { label: "Home", href: "#home" },
@@ -37,21 +25,6 @@ const navItems = [
   { label: "Projects", href: "/projects" },
   { label: "Skills", href: "/skills" },
   { label: "Contact", href: "/contact" }
-];
-
-const tech = [
-  { name: "Python", icon: <SiPython /> },
-  { name: "C", icon: <SiC /> },
-  { name: "C++", icon: <SiCplusplus /> },
-  { name: "JavaScript", icon: <SiJavascript /> },
-  { name: "TypeScript", icon: <SiTypescript /> },
-  { name: "React", icon: <SiReact /> },
-  { name: "Next.js", icon: <SiNextdotjs /> },
-  { name: "HTML", icon: <SiHtml5 /> },
-  { name: "CSS", icon: <SiCss /> },
-  { name: "Streamlit", icon: <SiStreamlit /> },
-  { name: "Godot", icon: <SiGodotengine /> },
-  { name: "Git/GitHub", icon: <SiGit /> }
 ];
 
 const featuredProjects = portfolioProjects.slice(0, 6);
@@ -83,6 +56,9 @@ export default function Home() {
         <div className="social-stack">
           <a href={profile.github} aria-label="GitHub" target="_blank" rel="noreferrer">
             <Github size={20} />
+          </a>
+          <a href={profile.leetcode} aria-label="LeetCode" target="_blank" rel="noreferrer">
+            <SiLeetcode size={19} />
           </a>
           <a href={profile.linkedin} aria-label="LinkedIn" target="_blank" rel="noreferrer">
             <Linkedin size={19} />
@@ -246,14 +222,7 @@ export default function Home() {
             View All Skills <ArrowRight size={16} />
           </a>
         </div>
-        <div className="tech-row">
-          {tech.map((item) => (
-            <div className="tech-item" key={item.name} data-reveal>
-              {item.icon}
-              <span>{item.name}</span>
-            </div>
-          ))}
-        </div>
+        <ToolkitMarquee />
       </section>
 
       <section id="education" className="education" data-reveal>
@@ -264,12 +233,12 @@ export default function Home() {
         </div>
         <div className="education-grid">
           {education.map((item) => (
-            <article className={`education-card${item.logo === "GCI" ? " education-card--lab" : ""}`} key={item.school} data-reveal>
+            <article className={`education-card${item.logo === "GCI" ? " education-card--lab" : ""}`} key={`${item.school}-${item.degree}`} data-reveal>
               <EducationLogo alt={`${item.school} education mark`} fallback={item.logo} src={item.logoSrc} />
               <p className="timeline-period">{item.period}</p>
               <h3>{item.school}</h3>
               <p className="timeline-company">{item.degree}</p>
-              <p>{item.details}</p>
+              {item.details ? <p>{item.details}</p> : null}
               {item.courseUrl ? (
                 <a className="education-course-link" href={item.courseUrl} rel="noreferrer" target="_blank">
                   Course syllabus <ArrowUpRight aria-hidden="true" size={15} />

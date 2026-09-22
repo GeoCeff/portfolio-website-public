@@ -1,36 +1,8 @@
 import { ArrowDownToLine, ArrowLeft, Github, Instagram, Linkedin, Mail } from "lucide-react";
-import {
-  SiC,
-  SiCplusplus,
-  SiCss,
-  SiGit,
-  SiGodotengine,
-  SiHtml5,
-  SiJavascript,
-  SiNextdotjs,
-  SiPython,
-  SiReact,
-  SiStreamlit,
-  SiTypescript
-} from "react-icons/si";
 import { sitePath } from "../paths";
 import ScrollRail from "../ScrollRail";
 import { profile, skillGroups } from "../siteData";
-
-const logos = [
-  { name: "Python", icon: <SiPython /> },
-  { name: "C", icon: <SiC /> },
-  { name: "C++", icon: <SiCplusplus /> },
-  { name: "JavaScript", icon: <SiJavascript /> },
-  { name: "TypeScript", icon: <SiTypescript /> },
-  { name: "React", icon: <SiReact /> },
-  { name: "Next.js", icon: <SiNextdotjs /> },
-  { name: "HTML", icon: <SiHtml5 /> },
-  { name: "CSS", icon: <SiCss /> },
-  { name: "Streamlit", icon: <SiStreamlit /> },
-  { name: "Godot", icon: <SiGodotengine /> },
-  { name: "Git/GitHub", icon: <SiGit /> }
-];
+import ToolkitMarquee from "../ToolkitMarquee";
 
 export default function SkillsPage() {
   return (
@@ -78,14 +50,7 @@ export default function SkillsPage() {
       </section>
 
       <section className="skills-showcase" data-reveal>
-        <div className="skill-logo-grid">
-          {logos.map((item) => (
-            <div className="skill-logo-card" key={item.name} data-reveal>
-              {item.icon}
-              <span>{item.name}</span>
-            </div>
-          ))}
-        </div>
+        <ToolkitMarquee />
 
         <div className="skill-group-grid">
           {skillGroups.map((group) => (

@@ -1,20 +1,17 @@
 "use client";
 
 import type { FormEvent } from "react";
-import { ArrowDownToLine, ArrowLeft, Code2, Github, Instagram, Linkedin, Mail, MapPin, Send } from "lucide-react";
+import { ArrowDownToLine, ArrowLeft, ArrowUpRight, Code2, Github, Instagram, Linkedin, Mail, MapPin } from "lucide-react";
 import { sitePath } from "../paths";
 import ScrollRail from "../ScrollRail";
 import { profile } from "../siteData";
 
 const contactItems = [
-  { label: "Email", value: profile.email, href: profile.mailto, icon: <Mail /> },
-  { label: "Location", value: profile.location, icon: <MapPin /> },
-  { label: "Availability", value: profile.availability, icon: <Send /> },
-  { label: "LinkedIn", value: profile.linkedinLabel, href: profile.linkedin, icon: <Linkedin /> },
-  { label: "Instagram", value: profile.instagramLabel, href: profile.instagram, icon: <Instagram /> },
-  { label: "GitHub", value: profile.githubLabel, href: profile.github, icon: <Github /> },
-  { label: "LeetCode", value: profile.leetcodeLabel, href: profile.leetcode, icon: <Code2 /> },
-  { label: "DataCamp", value: profile.datacampLabel, href: profile.datacamp, icon: <Code2 /> }
+  { label: "GitHub", value: "@GeoCeff", href: profile.github, icon: <Github /> },
+  { label: "LinkedIn", value: "Geo Ceff Vinzr Gabaisen", href: profile.linkedin, icon: <Linkedin /> },
+  { label: "Instagram", value: "@g.cefff", href: profile.instagram, icon: <Instagram /> },
+  { label: "LeetCode", value: "@Vinzr", href: profile.leetcode, icon: <Code2 /> },
+  { label: "DataCamp", value: "ghgabaisen", href: profile.datacamp, icon: <Code2 /> }
 ];
 
 function openEmailDraft(event: FormEvent<HTMLFormElement>) {
@@ -67,52 +64,43 @@ export default function ContactPage() {
           <ArrowLeft size={17} />
           <span>Back to portfolio</span>
         </a>
-        <p className="hello"><span /> Let&apos;s Connect</p>
+        <p className="hello"><span /> Get in touch</p>
         <h1>CONTACT</h1>
-        <p className="role">Messages / Collaborations / Opportunities</p>
         <p className="about-lead">
-          Reach out for software projects, data-focused work, game or web systems,
-          collaborations, or opportunities where practical engineering and clear problem-solving
-          matter.
+          I&apos;m open to internships, software projects, and collaborations around data tools,
+          web interfaces, and games. Tell me what you&apos;re working on.
         </p>
+        <div className="contact-direct">
+          <a href={profile.mailto}><Mail size={20} aria-hidden="true" /><span>{profile.email}</span><ArrowUpRight size={18} aria-hidden="true" /></a>
+          <p><MapPin size={16} aria-hidden="true" />{profile.location}</p>
+        </div>
       </section>
 
       <section className="contact-grid" data-reveal>
-        <article className="story-card large" data-reveal>
+        <article className="contact-message" data-reveal>
           <p className="bio-kicker">Message</p>
-          <h2>Send a note.</h2>
+          <h2>Write a message</h2>
           <form className="contact-form" onSubmit={openEmailDraft}>
-            <input aria-label="Name" autoComplete="name" name="name" placeholder="Name" required />
-            <input aria-label="Email" autoComplete="email" name="email" placeholder="Email" required type="email" />
-            <textarea aria-label="Message" name="message" placeholder="Message" required rows={6} />
+            <label>Name<input autoComplete="name" name="name" placeholder="Your name" required /></label>
+            <label>Email<input autoComplete="email" name="email" placeholder="you@example.com" required type="email" /></label>
+            <label>Message<textarea name="message" placeholder="A little about your idea..." required rows={5} /></label>
             <button className="button primary" type="submit">
               <span>Open Email Draft</span>
               <Mail size={16} />
             </button>
+            <p className="contact-form-note">Opens your email app with a draft. Nothing is sent from this page.</p>
           </form>
         </article>
 
-        <aside className="contact-list">
+        <aside className="contact-list" aria-label="Other places to connect">
+          <p className="bio-kicker">Elsewhere</p>
+          <h2>Find me online</h2>
           {contactItems.map((item) => (
-            <article className="contact-card" key={item.label} data-reveal>
+            <a className="contact-channel" href={item.href} key={item.label} rel="noreferrer" target="_blank">
               {item.icon}
-              <div>
-                <p className="bio-kicker">{item.label}</p>
-                <h3>
-                  {item.href ? (
-                    <a
-                      href={item.href}
-                      target={item.href.startsWith("http") ? "_blank" : undefined}
-                      rel={item.href.startsWith("http") ? "noreferrer" : undefined}
-                    >
-                      {item.value}
-                    </a>
-                  ) : (
-                    item.value
-                  )}
-                </h3>
-              </div>
-            </article>
+              <span><strong>{item.label}</strong><small>{item.value}</small></span>
+              <ArrowUpRight className="contact-channel-arrow" size={17} aria-hidden="true" />
+            </a>
           ))}
         </aside>
       </section>
