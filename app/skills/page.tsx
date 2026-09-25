@@ -1,4 +1,5 @@
 import { ArrowDownToLine, ArrowLeft, Github, Instagram, Linkedin, Mail } from "lucide-react";
+import AnimatedHeroTitle from "../AnimatedHeroTitle";
 import { sitePath } from "../paths";
 import ScrollRail from "../ScrollRail";
 import { profile, skillGroups } from "../siteData";
@@ -40,7 +41,9 @@ export default function SkillsPage() {
           <span>Back to portfolio</span>
         </a>
         <p className="hello"><span /> Technical Toolkit</p>
-        <h1>SKILLS</h1>
+        <div className="route-title-row">
+          <AnimatedHeroTitle text="SKILLS" />
+        </div>
         <p className="role">Languages / Software / Data / Systems</p>
         <p className="about-lead">
           A project-backed map of the languages, software, frameworks, platforms, and workflows I

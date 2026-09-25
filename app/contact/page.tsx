@@ -2,6 +2,7 @@
 
 import type { FormEvent } from "react";
 import { ArrowDownToLine, ArrowLeft, ArrowUpRight, Code2, Github, Instagram, Linkedin, Mail, MapPin } from "lucide-react";
+import AnimatedHeroTitle from "../AnimatedHeroTitle";
 import { sitePath } from "../paths";
 import ScrollRail from "../ScrollRail";
 import { profile } from "../siteData";
@@ -65,7 +66,9 @@ export default function ContactPage() {
           <span>Back to portfolio</span>
         </a>
         <p className="hello"><span /> Get in touch</p>
-        <h1>CONTACT</h1>
+        <div className="route-title-row">
+          <AnimatedHeroTitle text="CONTACT" />
+        </div>
         <p className="about-lead">
           I&apos;m open to internships, software projects, and collaborations around data tools,
           web interfaces, and games. Tell me what you&apos;re working on.

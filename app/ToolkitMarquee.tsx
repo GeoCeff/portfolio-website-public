@@ -2,19 +2,14 @@ import {
   SiC,
   SiCplusplus,
   SiCss,
-  SiExpo,
-  SiFfmpeg,
   SiGit,
   SiGithubactions,
   SiGodotengine,
   SiHtml5,
   SiJavascript,
-  SiLeaflet,
   SiNextdotjs,
-  SiNodedotjs,
   SiPython,
   SiReact,
-  SiSqlite,
   SiStreamlit,
   SiTypescript
 } from "react-icons/si";
@@ -37,10 +32,8 @@ const groups = [
     items: [
       { name: "React", icon: <SiReact /> },
       { name: "Next.js", icon: <SiNextdotjs /> },
-      { name: "React Native", icon: <SiReact /> },
-      { name: "Expo", icon: <SiExpo /> },
       { name: "Streamlit", icon: <SiStreamlit /> },
-      { name: "Leaflet", icon: <SiLeaflet /> }
+      { name: "Chrome Extensions", icon: <SiJavascript /> }
     ]
   },
   {
@@ -48,10 +41,9 @@ const groups = [
     items: [
       { name: "Godot", icon: <SiGodotengine /> },
       { name: "Git / GitHub", icon: <SiGit /> },
-      { name: "Node.js", icon: <SiNodedotjs /> },
       { name: "GitHub Actions", icon: <SiGithubactions /> },
-      { name: "SQLite", icon: <SiSqlite /> },
-      { name: "FFmpeg", icon: <SiFfmpeg /> }
+      { name: "Pandas / NumPy", icon: <SiPython /> },
+      { name: "Plotly", icon: <SiPython /> }
     ]
   }
 ];

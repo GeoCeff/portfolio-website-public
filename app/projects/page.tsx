@@ -1,4 +1,5 @@
 import { ArrowDownToLine, ArrowLeft, ArrowRight, Github, Instagram, Linkedin, Mail } from "lucide-react";
+import AnimatedHeroTitle from "../AnimatedHeroTitle";
 import Image from "next/image";
 import { sitePath } from "../paths";
 import { openSourceHighlights, portfolioProjects, projectNotes } from "../projectData";
@@ -51,13 +52,22 @@ export default function ProjectsPage() {
           <span>Back to portfolio</span>
         </a>
         <p className="hello"><span /> Selected Work</p>
-        <h1>PROJECTS</h1>
+        <div className="route-title-row">
+          <AnimatedHeroTitle text="PROJECTS" />
+        </div>
         <p className="role">Builds / Systems / Experiments</p>
         <p className="about-lead">
           A proof-led tour of shipped and portfolio-ready work: game systems, local data tools,
           browser performance utilities, simulations, automation, and interfaces that make
           technical ideas easier to use.
         </p>
+        <div className="route-hero-art route-hero-art--projects" aria-hidden="true">
+          <span className="art-ring" />
+          <span className="art-node" />
+          <span className="art-node" />
+          <span className="art-node" />
+          <span className="art-panel" />
+        </div>
       </section>
 
       <section className="project-showcase" data-reveal>

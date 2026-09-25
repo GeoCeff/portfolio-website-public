@@ -1,8 +1,10 @@
-import { ArrowDownToLine, ArrowLeft, ArrowRight, Github, Instagram, Linkedin, Mail } from "lucide-react";
+import { ArrowDownToLine, ArrowLeft, ChevronDown, Github, Instagram, Linkedin, Mail } from "lucide-react";
+import AnimatedHeroTitle from "../AnimatedHeroTitle";
 import Image from "next/image";
 import { sitePath } from "../paths";
 import ScrollRail from "../ScrollRail";
-import { aboutMilestones, aboutTraits, profile } from "../siteData";
+import { personalTopics, profile } from "../siteData";
+import { aboutPosts } from "./posts";
 
 export default function AboutPage() {
   return (
@@ -51,12 +53,15 @@ export default function AboutPage() {
             <span>Back to portfolio</span>
           </a>
           <p className="hello"><span /> About {profile.displayName}</p>
-          <h1>STORY</h1>
-          <p className="role">Computer Science / Data / Game Systems</p>
+          <div className="route-title-row">
+            <AnimatedHeroTitle text="STORY" />
+          </div>
+          <p className="role">Beyond the projects</p>
           <p className="about-lead">
-            I am {profile.fullName}, a BS Computer Science student at UP Cebu and a DOST-SEI
-            scholar. I build useful systems where software, data, and interaction meet: local
-            dashboards, browser tools, game systems, simulations, and automation with guardrails.
+            Who? Me? I am Geo Ceff Vinzr H. Gabaisen (Human), a Computer Science student studying
+            at UP Cebu. Currently at the ripe young age of 19, atleast at the moment I am writing
+            this.  Male and straight. Would be the greatest philosopher of all time if I was born
+            a few thousand years ago.
           </p>
         </div>
 
@@ -81,108 +86,83 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="story-grid" data-reveal>
-        <article className="story-card large">
-          <p className="bio-kicker">Profile</p>
-          <h2>A student builder focused on useful systems.</h2>
-          <p>
-            I study Computer Science at the University of the Philippines Cebu, where I am building
-            foundations in programming, algorithms, data analysis, and software development. My
-            work is strongest when it turns a technical concept into something visible, testable,
-            and usable.
-          </p>
-          <p>
-            I enjoy projects that combine logic, usefulness, and a clean user experience, from
-            analytics dashboards and web interfaces to browser extensions, Godot systems, local
-            automation, and interactive simulations. After joining the April 2026 GCI World
-            cohort, I am retaking the September-December course with Matsuo-Iwasawa Laboratory,
-            The University of Tokyo, to complete the coursework and qualify for a certificate.
-          </p>
-        </article>
-
-        <aside className="story-card traits-card" data-reveal>
-          <p className="bio-kicker">Focus</p>
-          <div className="trait-list">
-            {aboutTraits.map((trait) => (
-              <span key={trait}>{trait}</span>
-            ))}
-          </div>
-        </aside>
-      </section>
-
-      <section className="story-path" data-reveal>
+      <section className="personal-section" data-reveal>
         <div className="section-title">
           <span />
-          <h2>01 - journey</h2>
+          <h2>01 - beyond the projects</h2>
           <span />
         </div>
-        <div className="about-timeline">
-          {aboutMilestones.map((item) => (
-            <article className="timeline-item" key={item.label} data-reveal>
-              <div className="timeline-dot" aria-hidden="true" />
-              <p className="timeline-period">{item.label}</p>
-              <div>
-                <h3>{item.title}</h3>
-                <p>{item.copy}</p>
-              </div>
+        <div className="personal-grid">
+          {personalTopics.map((topic) => (
+            <article className="personal-topic" key={topic.title} data-reveal>
+              <h3>{topic.title}</h3>
+              <p>{topic.copy}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="photo-strip" data-reveal>
+      <section className="writing-section" id="writing" data-reveal>
         <div className="section-title">
           <span />
-          <h2>02 - selected work</h2>
+          <h2>02 - writing</h2>
           <span />
         </div>
-        <div className="photo-grid">
-          <article className="photo-card" data-reveal>
-            <div className="photo-placeholder">
-              <Image
-                alt="Perk the Star orbital-defense gameplay"
-                className="project-shot"
-                height={420}
-                src={sitePath("/images/projects/perk-the-star-gameplay.png")}
-                width={640}
-              />
-            </div>
-            <p>Perk the Star - six-mode orbital defense</p>
-          </article>
-          <article className="photo-card" data-reveal>
-            <div className="photo-placeholder">
-              <Image
-                alt="Philippine Demographic Mapper choropleth preview"
-                className="project-shot"
-                height={420}
-                src={sitePath("/images/projects/demographic-mapper.png")}
-                width={640}
-              />
-            </div>
-            <p>Demographic Mapper - reviewed PSGC data joins</p>
-          </article>
-          <article className="photo-card" data-reveal>
-            <div className="photo-placeholder">
-              <Image
-                alt="Stock Backtester market analytics dashboard"
-                className="project-shot"
-                height={420}
-                src={sitePath("/images/projects/stock-backtester.png")}
-                width={640}
-              />
-            </div>
-            <p>Stock Backtester - strategy and risk analysis</p>
-          </article>
-        </div>
+        {aboutPosts.length ? (
+          <div className="writing-list">
+            {aboutPosts.map((post) => (
+              <article className="writing-post" id={`post-${post.slug}`} key={post.slug}>
+                <details>
+                  <summary>
+                    <span className="writing-meta">
+                      <span>{post.topic}</span>
+                      <time dateTime={post.date}>
+                        {new Intl.DateTimeFormat("en-US", {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                          timeZone: "UTC"
+                        }).format(new Date(post.date))}
+                      </time>
+                    </span>
+                    <strong className="writing-title">{post.title}</strong>
+                    <span className="writing-excerpt">{post.excerpt}</span>
+                    <span className="writing-toggle">
+                      <span className="writing-read">Read post</span>
+                      <span className="writing-close">Close post</span>
+                      <ChevronDown size={18} aria-hidden="true" />
+                    </span>
+                  </summary>
+                  <div className="writing-body">
+                    {post.blocks.map((block, index) => {
+                      if (block.type === "heading") return <h3 key={index}>{block.text}</h3>;
+                      if (block.type === "paragraph") return <p key={index}>{block.text}</p>;
+                      if (block.type === "quote") return <blockquote key={index}>{block.text}</blockquote>;
+                      if (block.type === "list") {
+                        return <ul key={index}>{block.items.map((item) => <li key={item}>{item}</li>)}</ul>;
+                      }
+                      return (
+                        <figure key={index}>
+                          <Image
+                            alt={block.alt}
+                            height={block.height}
+                            src={sitePath(block.src)}
+                            width={block.width}
+                          />
+                          {block.caption ? <figcaption>{block.caption}</figcaption> : null}
+                        </figure>
+                      );
+                    })}
+                  </div>
+                </details>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <p className="writing-empty">No posts published yet.</p>
+        )}
       </section>
 
-      <section className="about-closing" data-reveal>
-        <p>I am open to opportunities and collaborations where thoughtful software and practical problem-solving can create value.</p>
-        <a className="button primary" href={sitePath("/contact")}>
-          <span>Contact Me</span>
-          <ArrowRight size={18} />
-        </a>
-      </section>
     </main>
   );
 }

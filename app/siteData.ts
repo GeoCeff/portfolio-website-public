@@ -53,7 +53,24 @@ export const experiences = [
   }
 ];
 
-export const education = [
+type EducationLevel = {
+  degree: string;
+  period: string;
+  details?: string;
+};
+
+type EducationItem = {
+  school: string;
+  degree: string;
+  period: string;
+  details?: string;
+  logo: string;
+  logoSrc?: string;
+  courseUrl?: string;
+  levels?: EducationLevel[];
+};
+
+export const education: EducationItem[] = [
   {
     school: "University of the Philippines Cebu",
     degree: "Bachelor of Science in Computer Science",
@@ -75,134 +92,112 @@ export const education = [
   },
   {
     school: "Bohol Wisdom School",
-    degree: "Senior High School | STEM Strand",
-    period: "2023 - 2025",
-    details:
-      "Ranked 9th overall in the Grade 12 batch. Served as governor of the Mind Games Club, which focused on chess and other logic games.",
+    degree: "Basic Education",
+    period: "2013 - 2025",
     logo: "BWS",
-    logoSrc: "/logos/bohol-wisdom-school-logo.png"
-  },
-  {
-    school: "Bohol Wisdom School",
-    degree: "Junior High School",
-    period: "2019 - 2023",
-    details: "",
-    logo: "BWS",
-    logoSrc: "/logos/bohol-wisdom-school-logo.png"
-  },
-  {
-    school: "Bohol Wisdom School",
-    degree: "Elementary School",
-    period: "2013 - 2019",
-    details: "",
-    logo: "BWS",
-    logoSrc: "/logos/bohol-wisdom-school-logo.png"
+    logoSrc: "/logos/bohol-wisdom-school-logo.png",
+    levels: [
+      {
+        degree: "Senior High School | STEM Strand",
+        period: "2023 - 2025",
+        details:
+          "Ranked 9th overall in the Grade 12 batch. Served as governor of the Mind Games Club, which focused on chess and other logic games."
+      },
+      {
+        degree: "Junior High School",
+        period: "2019 - 2023"
+      },
+      {
+        degree: "Elementary School",
+        period: "2013 - 2019"
+      }
+    ]
   }
 ];
 
-export const aboutTraits = [
-  "Godot 4.6 + C++ game systems",
-  "Python + Streamlit data tools",
-  "React + TypeScript interfaces",
-  "Local-first automation + validation"
-];
-
-export const aboutMilestones = [
+export const personalTopics = [
   {
-    label: "Foundations",
-    title: "Computer science became the foundation.",
+    title: "Hobbies",
     copy:
-      "My current foundation is BS Computer Science at UP Cebu, where I am growing through programming, algorithms, data work, and hands-on software practice."
+      "I am an avid gamer, or used to be. I'm more casual now, preferring more chill and less competitive games though I used to sweat and grind alot (CoD:M and such). Initially developed my interest in logic through Minecraft redstone, my desire for automation comes from me building farms in the game.\n\nI love music, I listen to it alot alot. You won't see me in person without some form of audio device (this is somewhat of an exaggeration but also isn't one). I listen to alot of genres, the \"normie\" ones such as RnB, Hip-Hop, etc. but I also listen rock, metal, air (joke), white girl music and dare I say phonk. Allat I haven't mentioned but I really don't limit what I listen to."
   },
   {
-    label: "Practice",
-    title: "Learning becomes stronger when it ships.",
+    title: "Passions",
     copy:
-      "I apply my skills through shipped projects: a Godot/C++ tower-defense game, Streamlit market analytics, Philippine choropleth mapping, browser performance tooling, physics simulation, and local automation."
+      "--Gym/Fitness--\nI love and hate the gym. Well it might be I love the gym but hate my physique. Could be body dysmorphia or that I really am just small. I'd say the former. Anyways, throughout my senior high school days, I'd always workout at home at times where the academic load wasn't that heavy, for the most part atleast. I didn't really care much, I'd still train despite having exams the next day/morning. Recently, I have started going to a local gym and training is the one thing I look forward to in my days.\n\nDue to this, I am pretty interested in what applications computer science has in the field of physical fitness. I have been updating myself in upcoming and new researches of the subject, especially when it comes to what data has been pulled and interpretations of it."
   },
   {
-    label: "Growth",
-    title: "Data, software, and useful systems are the direction.",
+    title: "Values",
     copy:
-      "I am growing toward work that blends software engineering, data analysis, and clear product thinking while retaking GCI World from September to December 2026."
+      "Philosophically, I would label myelf absurdist nihilist. I do not believe in an absolute truth. What I do believe in is my being. I move in my favor and create situations favorable to me.\n\nOf all the traits, I value resolve the most. I truly believe that when one does something, they should do it with their all."
   }
 ];
 
 export const skillGroups = [
   {
-    title: "Languages and Data Formats",
+    title: "Languages and Core Web",
     summary:
-      "Languages and formats used across the GitHub projects, from native game helpers to static web apps, CLIs, dashboards, and local data workflows.",
-    items: ["Python", "C", "C++", "GDScript", "JavaScript", "TypeScript", "HTML", "CSS", "Markdown", "JSON", "CSV"],
+      "Languages and web foundations listed in the resume and used across the portfolio projects.",
+    items: ["Python", "C", "C++", "JavaScript", "TypeScript", "HTML", "CSS", "GDScript", "JSON"],
     evidence: [
-      "Python powers the Stock Backtester, Auto Response Email, Python Automation Toolkit, Terminal Journal, and Local Video Ad Pipeline.",
-      "C++ and GDExtension support reusable gameplay helpers in Perk the Star and the Bagyo Command simulation direction.",
-      "JavaScript, HTML, and CSS drive the Projectile Motion Lab, Philippine Demographic Mapper, Geohash Studio, and ChatGPT Thread Optimizer.",
-      "TypeScript is used in this Next.js portfolio and the Expo/React Native finance app work.",
-      "JSON, CSV, and Markdown appear in wave data, project save files, audit logs, reports, journal entries, and documentation."
+      "Python appears in the quantitative trading platform, automation toolkit, and GCI data science coursework.",
+      "C, C++, and GDScript appear in the listed skills and the Perk the Star Godot/GDExtension stack.",
+      "JavaScript, TypeScript, HTML, and CSS appear in the resume skills and browser/web projects.",
+      "JSON appears in the Perk the Star project stack for wave data."
     ]
   },
   {
-    title: "Web and App Frameworks",
+    title: "Frameworks and Interfaces",
     summary:
-      "UI stacks used for portfolio pages, dashboards, mobile finance flows, local tools, map studios, and browser extension interfaces.",
-    items: ["React", "Next.js", "React Native", "Expo", "Streamlit", "Gradio", "Leaflet", "Manifest V3", "DOM APIs", "Responsive UI"],
+      "Frameworks and interface tools explicitly named in the resume's skills and project stacks.",
+    items: ["React", "Next.js", "Streamlit", "Chrome Extensions", "Manifest V3", "DOM APIs"],
     evidence: [
-      "Next.js and React power the portfolio, route pages, reusable project data, image handling, and responsive layouts.",
-      "Expo and React Native support the offline-first FinanceFlow mobile app with local storage and optional app locking.",
-      "Streamlit powers the market analytics workstation for quotes, indicators, backtests, paper trading, and risk views.",
-      "Gradio is used in the local video ad pipeline for preview and render workflows.",
-      "Leaflet, OpenStreetMap, Manifest V3, MutationObserver, content-visibility, and DOM APIs appear in the mapping and browser-extension projects."
+      "React and Next.js are listed under resume skills and power this portfolio.",
+      "Streamlit appears in the quantitative trading platform and resume skills.",
+      "Chrome Extensions, Manifest V3, MutationObserver, content-visibility, and DOM APIs appear in ChatGPT Thread Optimizer."
     ]
   },
   {
-    title: "Data, Finance, and Mapping",
+    title: "Data and Analytics",
     summary:
-      "Data skills shown through market analytics, choropleth mapping, geohash tools, CSV validation, export workflows, and local-first storage.",
-    items: ["Pandas", "Backtesting", "Risk Metrics", "SQLite", "GeoJSON", "PSGC", "SVG", "CSV Validation", "Yahoo Finance", "Stooq"],
+      "Data libraries and analytics skills named in the resume and GCI coursework.",
+    items: ["Pandas", "NumPy", "Plotly", "yfinance", "Backtesting", "Risk Metrics", "CSV Export", "Data Visualization"],
     evidence: [
-      "The Stock Backtester uses market data sources, indicator calculations, MA/RSI/Bollinger backtests, Quant Lab strategy checks, and risk metrics.",
-      "The Philippine Demographic Mapper uses PSGC-coded CSV joins, mismatch review, duplicate checks, scoped geography, GeoJSON boundaries, and PNG/SVG export.",
-      "Geohash Studio uses coordinate encoding, decoding, bounds inspection, cell-size estimates, and map plotting.",
-      "FinanceFlow uses local SQLite persistence for accounts, transactions, categories, budgets, analytics, and backup flows.",
-      "CSV is used as a practical data boundary in email automation, reports, audit logs, demographic imports, and sample datasets."
+      "The quantitative trading platform uses Python, Streamlit, Pandas, NumPy, Plotly, and yfinance.",
+      "The same project includes MA/RSI/Bollinger backtests, Plotly dashboards, risk metrics, manual trading, and CSV export.",
+      "GCI coursework covers Python-based data analysis, machine learning, and data visualization."
     ]
   },
   {
-    title: "Games and Interactive Systems",
+    title: "Games and Browser Systems",
     summary:
-      "Interactive systems work across Godot gameplay, disaster simulation, browser physics, challenge modes, progression, and performance-aware UI.",
-    items: ["Godot 4.6", "GDExtension", "GDScript", "Wave Systems", "Tech Trees", "Procedural Maps", "Physics Simulation", "Animation", "Browser Extensions"],
+      "Interactive project stacks from the resume: Godot gameplay, browser extensions, and physics web work.",
+    items: ["Godot", "Godot 4.6", "GDExtension", "GDScript", "JavaScript Physics", "Chrome Extensions"],
     evidence: [
-      "Perk the Star includes orbital tower placement, waves, boss pressure, daily seeds, endless scaling, No-Flare Challenge, Tech XP, and saved records.",
-      "Bagyo Command frames disaster-readiness gameplay around procedural coastal maps, mitigation choices, and chained hazard scenarios.",
-      "Projectile Motion Lab simulates ideal and drag-aware motion with adjustable object, environment, gravity, air density, speed, angle, charts, animation, and exports.",
-      "ChatGPT Thread Optimizer handles long-page performance with reversible placeholders, content-visibility, containment, settings, and local test fixtures."
+      "Perk the Star is listed with C++, GDExtension, GDScript, Godot, and JSON.",
+      "ChatGPT Thread Optimizer is listed with JavaScript, Chrome Extension, Manifest V3, and DOM APIs.",
+      "Projectile Motion Web App is listed with JavaScript, HTML, and CSS."
     ]
   },
   {
-    title: "Automation and Local Systems",
+    title: "Automation and Testing",
     summary:
-      "Local-first automation work with explicit trust boundaries, review steps, dry-run defaults, file operations, exports, and command-line workflows.",
-    items: ["argparse", "unittest", "SMTP", "IMAP", "SecureStore", "File I/O", "ZIP Backups", "FFmpeg", "Real-ESRGAN", "Local Dashboards"],
+      "Automation and quality tools named in the Python Automation Toolkit resume entry.",
+    items: ["argparse", "unittest", "GitHub Actions", "File Organization", "CSV Reports", "ZIP Backups"],
     evidence: [
-      "Auto Response Email uses SMTP, IMAP, suppression lists, reply collection, dashboard review, schedules, drafts, dry-run defaults, and consent confirmation.",
-      "Python Automation Toolkit uses standard-library file organization, Markdown sales reports, timestamped ZIP backups, unittest, and GitHub Actions.",
-      "Terminal Journal uses local Markdown entries, metadata filters, exports, backup/restore, archive, validation, Git sync, todos, and single-file encryption flows.",
-      "The video ad pipeline uses FFmpeg rendering, Real-ESRGAN upscaling, local project presets, previews, and explicit publish planning."
+      "Python Automation Toolkit includes file organization, CSV sales reports, timestamped ZIP backups, argparse, unittest coverage, and GitHub Actions CI.",
+      "GitHub Actions also appears in the resume project stack for the automation toolkit."
     ]
   },
   {
-    title: "Software, Platforms, and Delivery",
+    title: "Tools and Platforms",
     summary:
-      "Tools used to build, test, document, ship, and present projects across desktop, browser, mobile, and web deployment targets.",
-    items: ["Git", "GitHub", "GitHub Actions", "GitHub Pages", "Node.js", "npm", "ESLint", "TypeScript Build Checks", "Microsoft Excel"],
+      "General tools and platforms listed in the resume skills, portfolio, and work experience sections.",
+    items: ["Git", "GitHub", "GitHub Actions", "Microsoft Excel", "LeetCode", "DataCamp"],
     evidence: [
-      "Git and GitHub hold the public project portfolio, source docs, issue-ready READMEs, workflows, and project history.",
-      "GitHub Actions validates projects such as the automation toolkit, projectile simulation, and extension-related checks.",
-      "GitHub Actions builds and deploys this Next.js portfolio and static demos like Projectile Motion Lab and Philippine Demographic Mapper to GitHub Pages.",
-      "Node.js and npm support local web tooling, static servers, data builds, and the Next.js build pipeline.",
-      "Microsoft Excel appears in administrative work for payroll, personnel data, job orders, and office records."
+      "Git/GitHub appears in the resume's Languages/Tools and Skills sections.",
+      "Microsoft Excel appears in the office aide experience for payroll and personnel data.",
+      "LeetCode and DataCamp are linked in the resume portfolio section."
     ]
   }
 ];

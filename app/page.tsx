@@ -8,6 +8,7 @@ import {
   Mail,
   Mouse,
 } from "lucide-react";
+import AnimatedHeroTitle from "./AnimatedHeroTitle";
 import Image from "next/image";
 import { SiLeetcode } from "react-icons/si";
 import EducationLogo from "./EducationLogo";
@@ -77,7 +78,9 @@ export default function Home() {
       <section id="home" className="hero">
         <div className="hero-copy" data-reveal>
           <p className="hello"><span /> Hello, I&apos;m</p>
-          <h1>{profile.displayName.toUpperCase()}</h1>
+          <div className="route-title-row">
+            <AnimatedHeroTitle text={profile.displayName} />
+          </div>
           <p className="role">{profile.role}</p>
           <p className="intro">{profile.heroIntro}</p>
           <div className="cta-row">
@@ -134,12 +137,13 @@ export default function Home() {
         </div>
         <article className="bio-card">
           <p className="bio-kicker">Biography</p>
-          <h3>A student builder turning technical ideas into usable tools.</h3>
+          <h3>A student builder building and breaking random programs and code, creating whatever he feels contributes to greater humanity</h3>
           <p>
-            Geo Ceff Vinzr H. Gabaisen is a BS Computer Science student at UP Cebu and a DOST-SEI
-            Merit scholar. His strongest work sits where software, data, and interaction meet:
-            playable game systems, local-first dashboards, browser utilities, simulations, and
-            automation tools with explicit guardrails.
+            As stated, I study computer science but thats such a broad thing so more specifically:
+            I am learning automation especially in regards with AI and agentic engineering (call me
+            a vibecoder or whatever). I build anything and I build what I like, therefore I build
+            anything I like... in all seriousness, I like dealing with data and interactive
+            thingymajigs such as games (also studying data science and machine learning from GCI).
           </p>
         </article>
       </section>
@@ -233,12 +237,27 @@ export default function Home() {
         </div>
         <div className="education-grid">
           {education.map((item) => (
-            <article className={`education-card${item.logo === "GCI" ? " education-card--lab" : ""}`} key={`${item.school}-${item.degree}`} data-reveal>
+            <article
+              className={`education-card${item.logo === "GCI" ? " education-card--lab" : ""}${item.levels ? " education-card--grouped" : ""}`}
+              key={`${item.school}-${item.degree}`}
+              data-reveal
+            >
               <EducationLogo alt={`${item.school} education mark`} fallback={item.logo} src={item.logoSrc} />
               <p className="timeline-period">{item.period}</p>
               <h3>{item.school}</h3>
               <p className="timeline-company">{item.degree}</p>
               {item.details ? <p>{item.details}</p> : null}
+              {item.levels ? (
+                <div className="education-levels">
+                  {item.levels.map((level) => (
+                    <section className="education-level" key={`${level.period}-${level.degree}`}>
+                      <p className="timeline-period">{level.period}</p>
+                      <h4>{level.degree}</h4>
+                      {level.details ? <p>{level.details}</p> : null}
+                    </section>
+                  ))}
+                </div>
+              ) : null}
               {item.courseUrl ? (
                 <a className="education-course-link" href={item.courseUrl} rel="noreferrer" target="_blank">
                   Course syllabus <ArrowUpRight aria-hidden="true" size={15} />
