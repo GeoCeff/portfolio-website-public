@@ -13,6 +13,7 @@ import Image from "next/image";
 import { SiLeetcode } from "react-icons/si";
 import EducationLogo from "./EducationLogo";
 import HeroScene from "./HeroScene";
+import PortraitOrbit from "./PortraitOrbit";
 import { sitePath } from "./paths";
 import { portfolioProjects } from "./projectData";
 import ScrollRail from "./ScrollRail";
@@ -29,6 +30,8 @@ const navItems = [
 ];
 
 const featuredProjects = portfolioProjects.slice(0, 6);
+
+const gallerySlots = ["Primary", "Details", "Proof"];
 
 export default function Home() {
   return (
@@ -106,23 +109,7 @@ export default function Home() {
         <div className="hero-visual" data-reveal>
           <HeroScene />
           <div className="hero-portrait" aria-label={profile.portraitAlt}>
-            <div className="portrait-orbit" aria-hidden="true" />
-            <div className="portrait-frame">
-              <div className="portrait-placeholder">
-                {profile.portraitSrc ? (
-                  <Image
-                    alt={profile.portraitAlt}
-                    className="portrait-photo"
-                    height={520}
-                    priority
-                    src={sitePath(profile.portraitSrc)}
-                    width={520}
-                  />
-                ) : (
-                  <span>{profile.monogram}</span>
-                )}
-              </div>
-            </div>
+            <PortraitOrbit alt={profile.portraitAlt} fallback={profile.monogram} slides={profile.portraitSlides} />
           </div>
         </div>
 
@@ -196,6 +183,30 @@ export default function Home() {
                     width={640}
                   />
                 ) : null}
+              </div>
+              <div className="project-mini-gallery" aria-label={`${project.title} media previews`}>
+                {gallerySlots.map((label, index) => {
+                  const screenshot = project.screenshots?.[index - 1];
+                  const image = index === 0 ? project.image : screenshot?.image;
+                  const alt = index === 0 ? project.imageAlt : screenshot?.imageAlt;
+                  const slotLabel = index === 0 ? "Main" : screenshot?.label ?? label;
+
+                  return (
+                    <div className={`project-mini-shot ${image ? "has-shot" : ""}`} key={slotLabel}>
+                      {image ? (
+                        <Image
+                          alt={alt ?? `${project.title} ${slotLabel} screenshot`}
+                          className="project-shot"
+                          height={150}
+                          src={sitePath(image)}
+                          width={220}
+                        />
+                      ) : (
+                        <span>{slotLabel}</span>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
               <div className="project-details">
                 <p>{project.summary}</p>

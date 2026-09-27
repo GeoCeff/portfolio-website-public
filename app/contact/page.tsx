@@ -66,8 +66,28 @@ export default function ContactPage() {
           <span>Back to portfolio</span>
         </a>
         <p className="hello"><span /> Get in touch</p>
-        <div className="route-title-row">
+        <div className="route-title-row contact-title-row">
           <AnimatedHeroTitle text="CONTACT" />
+          <svg className="contact-mail-scene" viewBox="0 0 156 104" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+            <g className="contact-mailbox">
+              <path className="contact-mailbox-stand" d="M99 68v21m-10 0h20" />
+              <path className="contact-mailbox-opening" d="M64 68V40a16 16 0 0 1 32 0v28Z" />
+              <g className="contact-mailbox-door">
+                <path d="M64 68V40a16 16 0 0 1 32 0v28Z" />
+                <path d="M76 43h8" />
+              </g>
+              <g className="contact-mail-envelope">
+                <rect className="contact-mail-paper" x="11" y="42" width="30" height="24" rx="3" stroke="none" />
+                <Mail x="8" y="36" width="36" height="36" strokeWidth={1.5} />
+              </g>
+              <path className="contact-mailbox-side" d="M80 24h38a18 18 0 0 1 18 18v26H96V40a16 16 0 0 0-16-16Z" />
+              <g className="contact-mailbox-flag">
+                <path d="M114 50V16" />
+                <path d="M114 16h12v10h-12Z" fill="currentColor" />
+                <circle cx="114" cy="50" r="2" fill="currentColor" stroke="none" />
+              </g>
+            </g>
+          </svg>
         </div>
         <p className="about-lead">
           I&apos;m open to internships, software projects, and collaborations around data tools,
@@ -75,7 +95,11 @@ export default function ContactPage() {
         </p>
         <div className="contact-direct">
           <a href={profile.mailto}><Mail size={20} aria-hidden="true" /><span>{profile.email}</span><ArrowUpRight size={18} aria-hidden="true" /></a>
-          <p><MapPin size={16} aria-hidden="true" />{profile.location}</p>
+          <a href={profile.locationHref} rel="noreferrer" target="_blank">
+            <MapPin size={16} aria-hidden="true" />
+            <span>{profile.location}</span>
+            <ArrowUpRight size={18} aria-hidden="true" />
+          </a>
         </div>
       </section>
 

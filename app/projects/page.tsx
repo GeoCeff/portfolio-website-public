@@ -6,6 +6,8 @@ import { openSourceHighlights, portfolioProjects, projectNotes } from "../projec
 import ScrollRail from "../ScrollRail";
 import { profile } from "../siteData";
 
+const gallerySlots = ["Main", "Screenshot", "Detail"];
+
 export default function ProjectsPage() {
   return (
     <main className="site-shell projects-page">
@@ -141,6 +143,33 @@ export default function ProjectsPage() {
               ) : (
                 <p className="image-note">{project.imageNote}</p>
               )}
+            </div>
+            <div className="showcase-gallery" aria-label={`${project.title} screenshot gallery`}>
+              {gallerySlots.map((label, slotIndex) => {
+                const screenshot = project.screenshots?.[slotIndex - 1];
+                const image = slotIndex === 0 ? project.image : screenshot?.image;
+                const alt = slotIndex === 0 ? project.imageAlt : screenshot?.imageAlt;
+                const slotLabel = slotIndex === 0 ? "Main image" : screenshot?.label ?? label;
+
+                return (
+                  <figure className={`showcase-gallery-item ${image ? "has-shot" : ""}`} key={slotLabel}>
+                    <div>
+                      {image ? (
+                        <Image
+                          alt={alt ?? `${project.title} ${slotLabel} screenshot`}
+                          className="project-shot"
+                          height={180}
+                          src={sitePath(image)}
+                          width={280}
+                        />
+                      ) : (
+                        <span>{slotLabel}</span>
+                      )}
+                    </div>
+                    <figcaption>{slotLabel}</figcaption>
+                  </figure>
+                );
+              })}
             </div>
           </article>
         ))}

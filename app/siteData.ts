@@ -11,10 +11,26 @@ export const profile = {
   heroQuote: "Practical systems, shipped with receipts.",
   portraitAlt: "Portrait of Geo Ceff Vinzr H. Gabaisen",
   portraitSrc: "/images/portfolio-image.jpg",
+  portraitSlides: [
+    {
+      src: "/images/portfolio-image.jpg",
+      label: "Formal portrait",
+      detail: "Current public profile image"
+    },
+    {
+      label: "Portrait slot 02",
+      detail: "Placeholder for a future casual photo"
+    },
+    {
+      label: "Portrait slot 03",
+      detail: "Placeholder for a future project photo"
+    }
+  ],
   resumeHref: "/resume/geo-gabaisen-resume-public.docx",
   email: "ghgabaisen@up.edu.ph",
   mailto: "mailto:ghgabaisen@up.edu.ph",
   location: "Cebu City, Cebu, Philippines",
+  locationHref: "https://www.google.com/maps/search/?api=1&query=Cebu%20City%2C%20Cebu%2C%20Philippines",
   availability: "Open to opportunities. Contact me.",
   github: "https://github.com/GeoCeff",
   githubLabel: "github.com/GeoCeff",
@@ -30,16 +46,16 @@ export const profile = {
 
 export const currentFocus = [
   {
-    label: "Building",
-    copy: "Perk the Star: Godot/C++ orbital defense systems."
+    label: "Currently",
+    copy: "Practicing automation, data workflows, and small tools that make repeated work less annoying."
   },
   {
-    label: "Learning",
-    copy: "GCI World: Python data analysis, model evaluation, and SQL."
+    label: "I Like",
+    copy: "Projects where logic becomes visible: dashboards, games, browser utilities, and interactive experiments."
   },
   {
-    label: "Direction",
-    copy: "Local-first tools with clear interfaces and careful guardrails."
+    label: "Work With Me",
+    copy: "Best fit: practical software, student-friendly teams, honest feedback, and ideas worth turning into something real."
   }
 ];
 

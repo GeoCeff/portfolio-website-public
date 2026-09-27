@@ -21,8 +21,15 @@ export const portfolioProjects = [
     stack: ["Godot 4.6", "C++", "GDExtension", "GDScript", "Game Systems"],
     href: "https://github.com/GeoCeff/perk-the-star",
     liveHref: "",
-    image: "/images/projects/perk-the-star-gameplay.png",
-    imageAlt: "Perk the Star live orbital-defense gameplay with mission HUD and tower tray",
+    image: "/images/projects/perk-the-star.png",
+    imageAlt: "Perk the Star main menu preview",
+    screenshots: [
+      {
+        image: "/images/projects/perk-the-star-gameplay.png",
+        imageAlt: "Perk the Star live orbital-defense gameplay with mission HUD and tower tray",
+        label: "Gameplay"
+      }
+    ],
     imageNote: "",
     className: "robot"
   },
@@ -235,7 +242,7 @@ export const portfolioProjects = [
       "Uses local screenshots, static export, and a GitHub Actions workflow for GitHub Pages."
     ],
     stack: ["Next.js", "React", "TypeScript", "CSS", "GitHub Pages"],
-    href: "https://github.com/GeoCeff/portfolio-website-public",
+    href: "https://github.com/GeoCeff/portfolio-website",
     liveHref: "",
     image: "/images/projects/portfolio-website.png",
     imageAlt: "Personal portfolio website screenshot",
