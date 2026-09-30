@@ -6,7 +6,7 @@ import { openSourceHighlights, portfolioProjects, projectNotes } from "../projec
 import ScrollRail from "../ScrollRail";
 import { profile } from "../siteData";
 
-const gallerySlots = ["Main", "Screenshot", "Detail"];
+const gallerySlots = ["Main image", "Left detail", "Right detail"];
 
 export default function ProjectsPage() {
   return (
@@ -63,13 +63,33 @@ export default function ProjectsPage() {
           browser performance utilities, simulations, automation, and interfaces that make
           technical ideas easier to use.
         </p>
-        <div className="route-hero-art route-hero-art--projects" aria-hidden="true">
-          <span className="art-ring" />
-          <span className="art-node" />
-          <span className="art-node" />
-          <span className="art-node" />
-          <span className="art-panel" />
-        </div>
+        <svg className="project-folder-scene" viewBox="0 0 300 240" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+          <g className="project-folder">
+            <path className="project-folder-back" d="M60 206V105a7 7 0 0 1 7-7h50l13 13h103a7 7 0 0 1 7 7v88Z" />
+            <g className="project-sheet project-sheet--code">
+              <rect x="120" y="122" width="60" height="72" rx="4" />
+              <path d="m139 140-7 7 7 7m22-14 7 7-7 7m-8-17-6 26M133 176h34m-34 6h22" />
+            </g>
+            <g className="project-sheet project-sheet--interface">
+              <rect x="120" y="122" width="60" height="72" rx="4" />
+              <rect x="131" y="137" width="38" height="28" rx="2" />
+              <path d="M131 145h38m-26 0v20m-10 11h34m-34 6h22" />
+            </g>
+            <g className="project-sheet project-sheet--build">
+              <rect x="120" y="122" width="60" height="72" rx="4" />
+              <path d="m150 135 15 8v17l-15 8-15-8v-17Zm-15 8 15 8 15-8m-15 8v17M133 181h17" />
+              <g className="project-build-check">
+                <circle cx="173" cy="176" r="11" />
+                <path d="m168 176 3 3 6-7" />
+              </g>
+            </g>
+            <g className="project-folder-cover">
+              <path d="M60 206V128a7 7 0 0 1 7-7h166a7 7 0 0 1 7 7v78Z" />
+              <path className="project-folder-label" d="M81 144h28m-28 8h17" />
+            </g>
+            <path className="project-folder-edge" d="M60 206h180" />
+          </g>
+        </svg>
       </section>
 
       <section className="project-showcase" data-reveal>
@@ -145,31 +165,36 @@ export default function ProjectsPage() {
               )}
             </div>
             <div className="showcase-gallery" aria-label={`${project.title} screenshot gallery`}>
-              {gallerySlots.map((label, slotIndex) => {
-                const screenshot = project.screenshots?.[slotIndex - 1];
-                const image = slotIndex === 0 ? project.image : screenshot?.image;
-                const alt = slotIndex === 0 ? project.imageAlt : screenshot?.imageAlt;
-                const slotLabel = slotIndex === 0 ? "Main image" : screenshot?.label ?? label;
+              {Array.from(
+                { length: Math.max(gallerySlots.length, 1 + (project.screenshots?.length ?? 0)) },
+                (_, slotIndex) => {
+                  const label = gallerySlots[slotIndex] ?? `Screenshot ${slotIndex}`;
+                  const screenshot = project.screenshots?.[slotIndex - 1];
+                  const fallbackDetail = slotIndex > 0 && !screenshot;
+                  const image = slotIndex === 0 ? project.image : screenshot?.image ?? project.image;
+                  const alt = slotIndex === 0 ? project.imageAlt : screenshot?.imageAlt ?? `${project.imageAlt}, ${label.toLowerCase()}`;
+                  const slotLabel = slotIndex === 0 ? "Main image" : screenshot?.label ?? label;
 
-                return (
-                  <figure className={`showcase-gallery-item ${image ? "has-shot" : ""}`} key={slotLabel}>
-                    <div>
-                      {image ? (
-                        <Image
-                          alt={alt ?? `${project.title} ${slotLabel} screenshot`}
-                          className="project-shot"
-                          height={180}
-                          src={sitePath(image)}
-                          width={280}
-                        />
-                      ) : (
-                        <span>{slotLabel}</span>
-                      )}
-                    </div>
-                    <figcaption>{slotLabel}</figcaption>
-                  </figure>
-                );
-              })}
+                  return (
+                    <figure className={`showcase-gallery-item ${image ? "has-shot" : ""} ${fallbackDetail ? `detail-crop detail-crop-${slotIndex}` : ""}`} key={slotLabel}>
+                      <div>
+                        {image ? (
+                          <Image
+                            alt={alt ?? `${project.title} ${slotLabel} screenshot`}
+                            className="project-shot"
+                            height={180}
+                            src={sitePath(image)}
+                            width={280}
+                          />
+                        ) : (
+                          <span>{slotLabel}</span>
+                        )}
+                      </div>
+                      <figcaption>{slotLabel}</figcaption>
+                    </figure>
+                  );
+                }
+              )}
             </div>
           </article>
         ))}

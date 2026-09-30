@@ -28,6 +28,16 @@ export const portfolioProjects = [
         image: "/images/projects/perk-the-star-gameplay.png",
         imageAlt: "Perk the Star live orbital-defense gameplay with mission HUD and tower tray",
         label: "Gameplay"
+      },
+      {
+        image: "/images/projects/perk-the-star-tech-tree.png",
+        imageAlt: "Perk the Star Sol Tech Tree showing six tower upgrade paths",
+        label: "Tech Tree"
+      },
+      {
+        image: "/images/projects/perk-the-star-achievements.png",
+        imageAlt: "Perk the Star Constellation of Valor achievements and medals screen",
+        label: "Achievements"
       }
     ],
     imageNote: "",
