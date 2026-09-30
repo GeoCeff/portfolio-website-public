@@ -1,6 +1,7 @@
 import { ArrowDownToLine, ArrowLeft, ChevronDown, Github, Instagram, Linkedin, Mail } from "lucide-react";
 import AnimatedHeroTitle from "../AnimatedHeroTitle";
 import Image from "next/image";
+import PortraitOrbit from "../PortraitOrbit";
 import { sitePath } from "../paths";
 import ScrollRail from "../ScrollRail";
 import { personalTopics, profile } from "../siteData";
@@ -66,23 +67,7 @@ export default function AboutPage() {
         </div>
 
         <div className="about-portrait" aria-label={profile.portraitAlt}>
-          <div className="portrait-orbit" aria-hidden="true" />
-          <div className="portrait-frame">
-            <div className="portrait-placeholder">
-              {profile.portraitSrc ? (
-                <Image
-                  alt={profile.portraitAlt}
-                  className="portrait-photo"
-                  height={520}
-                  priority
-                  src={sitePath(profile.portraitSrc)}
-                  width={520}
-                />
-              ) : (
-                <span>{profile.monogram}</span>
-              )}
-            </div>
-          </div>
+          <PortraitOrbit alt={profile.portraitAlt} fallback={profile.monogram} slides={profile.portraitSlides} />
         </div>
       </section>
 
@@ -93,12 +78,46 @@ export default function AboutPage() {
           <span />
         </div>
         <div className="personal-grid">
-          {personalTopics.map((topic) => (
-            <article className="personal-topic" key={topic.title} data-reveal>
-              <h3>{topic.title}</h3>
-              <p>{topic.copy}</p>
-            </article>
-          ))}
+          {personalTopics.map((topic) => {
+            const imagesAt = (placement: string) => {
+              const images = topic.images.filter((image) => image.placement === placement);
+
+              return images.length ? (
+                <div className="personal-topic-images">
+                  {images.map((image) => (
+                    <Image
+                      alt={image.alt}
+                      className={image.height > image.width ? "personal-topic-image--portrait" : undefined}
+                      height={image.height}
+                      key={image.src}
+                      src={sitePath(image.src)}
+                      width={image.width}
+                    />
+                  ))}
+                </div>
+              ) : null;
+            };
+
+            return (
+              <article className="personal-topic" key={topic.title} data-reveal>
+                {imagesAt("top")}
+                <h3>{topic.title}</h3>
+                <div className="personal-topic-copy">
+                  {topic.sections.map((section) => (
+                    <section className="personal-topic-section" key={section.heading}>
+                      {imagesAt(`before-${section.heading.toLowerCase()}`)}
+                      <h4>{section.heading}</h4>
+                      {section.copy.split("\n\n").map((paragraph) => (
+                        <p key={paragraph}>{paragraph}</p>
+                      ))}
+                      {imagesAt(`after-${section.heading.toLowerCase()}`)}
+                    </section>
+                  ))}
+                </div>
+                {imagesAt("end")}
+              </article>
+            );
+          })}
         </div>
       </section>
 

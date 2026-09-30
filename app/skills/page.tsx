@@ -1,9 +1,10 @@
-import { ArrowDownToLine, ArrowLeft, Github, Instagram, Linkedin, Mail } from "lucide-react";
+import { ArrowDownToLine, ArrowLeft, CodeXml, Database, Github, Instagram, Linkedin, Mail, Wrench } from "lucide-react";
 import AnimatedHeroTitle from "../AnimatedHeroTitle";
 import { sitePath } from "../paths";
 import ScrollRail from "../ScrollRail";
 import { profile, skillGroups } from "../siteData";
 import ToolkitMarquee from "../ToolkitMarquee";
+import SkillsToolboxBody from "../SkillsToolboxBody";
 
 export default function SkillsPage() {
   return (
@@ -50,6 +51,40 @@ export default function SkillsPage() {
           use across games, data products, browser tools, mobile apps, automation, simulations, and
           this portfolio.
         </p>
+        <svg className="skills-toolbox-scene" viewBox="0 0 300 280" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+          <g className="skills-toolbox">
+            <SkillsToolboxBody />
+            <g className="skills-tool skills-tool--code">
+              <g className="skills-tool-pulse">
+                <CodeXml x="134" y="202" width="32" height="32" />
+              </g>
+            </g>
+            <g className="skills-tool skills-tool--data">
+              <g className="skills-tool-pulse">
+                <Database x="134" y="202" width="32" height="32" className="skills-toolbox-solid" />
+              </g>
+            </g>
+            <g className="skills-tool skills-tool--tools">
+              <g className="skills-tool-pulse">
+                <Wrench x="134" y="202" width="32" height="32" className="skills-toolbox-solid" />
+              </g>
+            </g>
+            <g className="skills-browser">
+              <rect className="skills-toolbox-solid" x="72" y="22" width="156" height="78" rx="5" />
+              <path d="M72 39h156" />
+              <path opacity="0.65" d="M83 31h1m7 0h1m7 0h1" />
+              <g className="skills-browser-rows">
+                <path d="M85 54h51m-51 12h37m-37 12h45" />
+              </g>
+              <g className="skills-browser-chart">
+                <path opacity="0.5" d="M154 50v36h61" />
+                <path d="m161 76 14-10 14 5 20-19" />
+                <path d="M200 52h9v9" />
+              </g>
+            </g>
+            <SkillsToolboxBody front />
+          </g>
+        </svg>
       </section>
 
       <section className="skills-showcase" data-reveal>

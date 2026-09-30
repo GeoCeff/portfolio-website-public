@@ -31,7 +31,7 @@ const navItems = [
 
 const featuredProjects = portfolioProjects.slice(0, 6);
 
-const gallerySlots = ["Primary", "Details", "Proof"];
+const gallerySlots = ["Main", "Left detail", "Right detail"];
 
 export default function Home() {
   return (
@@ -185,28 +185,33 @@ export default function Home() {
                 ) : null}
               </div>
               <div className="project-mini-gallery" aria-label={`${project.title} media previews`}>
-                {gallerySlots.map((label, index) => {
-                  const screenshot = project.screenshots?.[index - 1];
-                  const image = index === 0 ? project.image : screenshot?.image;
-                  const alt = index === 0 ? project.imageAlt : screenshot?.imageAlt;
-                  const slotLabel = index === 0 ? "Main" : screenshot?.label ?? label;
+                {Array.from(
+                  { length: Math.max(gallerySlots.length, 1 + (project.screenshots?.length ?? 0)) },
+                  (_, index) => {
+                    const label = gallerySlots[index] ?? `Screenshot ${index}`;
+                    const screenshot = project.screenshots?.[index - 1];
+                    const fallbackDetail = index > 0 && !screenshot;
+                    const image = index === 0 ? project.image : screenshot?.image ?? project.image;
+                    const alt = index === 0 ? project.imageAlt : screenshot?.imageAlt ?? `${project.imageAlt}, ${label.toLowerCase()}`;
+                    const slotLabel = index === 0 ? "Main" : screenshot?.label ?? label;
 
-                  return (
-                    <div className={`project-mini-shot ${image ? "has-shot" : ""}`} key={slotLabel}>
-                      {image ? (
-                        <Image
-                          alt={alt ?? `${project.title} ${slotLabel} screenshot`}
-                          className="project-shot"
-                          height={150}
-                          src={sitePath(image)}
-                          width={220}
-                        />
-                      ) : (
-                        <span>{slotLabel}</span>
-                      )}
-                    </div>
-                  );
-                })}
+                    return (
+                      <div className={`project-mini-shot ${image ? "has-shot" : ""} ${fallbackDetail ? `detail-crop detail-crop-${index}` : ""}`} key={slotLabel}>
+                        {image ? (
+                          <Image
+                            alt={alt ?? `${project.title} ${slotLabel} screenshot`}
+                            className="project-shot"
+                            height={150}
+                            src={sitePath(image)}
+                            width={220}
+                          />
+                        ) : (
+                          <span>{slotLabel}</span>
+                        )}
+                      </div>
+                    );
+                  }
+                )}
               </div>
               <div className="project-details">
                 <p>{project.summary}</p>

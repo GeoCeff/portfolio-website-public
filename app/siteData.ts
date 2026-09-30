@@ -18,12 +18,14 @@ export const profile = {
       detail: "Current public profile image"
     },
     {
-      label: "Portrait slot 02",
-      detail: "Placeholder for a future casual photo"
+      src: "/images/portrait-casual.png",
+      label: "Casual portrait",
+      detail: "Casual photo with headphones"
     },
     {
-      label: "Portrait slot 03",
-      detail: "Placeholder for a future project photo"
+      src: "/images/portrait-red-shirt.jpg",
+      label: "Red shirt portrait",
+      detail: "Portrait in a custom red shirt"
     }
   ],
   resumeHref: "/resume/geo-gabaisen-resume-public.docx",
@@ -134,18 +136,86 @@ export const education: EducationItem[] = [
 export const personalTopics = [
   {
     title: "Hobbies",
-    copy:
-      "I am an avid gamer, or used to be. I'm more casual now, preferring more chill and less competitive games though I used to sweat and grind alot (CoD:M and such). Initially developed my interest in logic through Minecraft redstone, my desire for automation comes from me building farms in the game.\n\nI love music, I listen to it alot alot. You won't see me in person without some form of audio device (this is somewhat of an exaggeration but also isn't one). I listen to alot of genres, the \"normie\" ones such as RnB, Hip-Hop, etc. but I also listen rock, metal, air (joke), white girl music and dare I say phonk. Allat I haven't mentioned but I really don't limit what I listen to."
+    images: [
+      {
+        src: "/images/about/liked-music.png",
+        alt: "Geo Ceff's YouTube Music liked playlist",
+        width: 415,
+        height: 751,
+        placement: "end"
+      },
+      {
+        src: "/images/about/space-marine-2.png",
+        alt: "A Space Marine in a launch bay",
+        width: 1917,
+        height: 1078,
+        placement: "after-games"
+      },
+      {
+        src: "/images/about/roblox-dungeon.png",
+        alt: "A turn-based Roblox dungeon battle",
+        width: 1917,
+        height: 1073,
+        placement: "before-music"
+      }
+    ],
+    sections: [
+      {
+        heading: "Games",
+        copy:
+          "I am an avid gamer, or used to be. I'm more casual now, preferring more chill and less competitive games though I used to sweat and grind alot (CoD:M and such). Initially developed my interest in logic through Minecraft redstone, my desire for automation comes from me building farms in the game."
+      },
+      {
+        heading: "Music",
+        copy:
+          "I love music, I listen to it alot alot. You won't see me in person without some form of audio device (this is somewhat of an exaggeration but also isn't one). I listen to alot of genres, the \"normie\" ones such as RnB, Hip-Hop, etc. but I also listen rock, metal, air (joke), white girl music and dare I say phonk. Allat I haven't mentioned but I really don't limit what I listen to."
+      }
+    ]
   },
   {
     title: "Passions",
-    copy:
-      "--Gym/Fitness--\nI love and hate the gym. Well it might be I love the gym but hate my physique. Could be body dysmorphia or that I really am just small. I'd say the former. Anyways, throughout my senior high school days, I'd always workout at home at times where the academic load wasn't that heavy, for the most part atleast. I didn't really care much, I'd still train despite having exams the next day/morning. Recently, I have started going to a local gym and training is the one thing I look forward to in my days.\n\nDue to this, I am pretty interested in what applications computer science has in the field of physical fitness. I have been updating myself in upcoming and new researches of the subject, especially when it comes to what data has been pulled and interpretations of it."
+    images: [
+      {
+        src: "/images/about/gym-progress.jpg",
+        alt: "Geo Ceff taking a progress photo at the gym",
+        width: 4096,
+        height: 3072,
+        placement: "end"
+      }
+    ],
+    sections: [
+      {
+        heading: "Gym",
+        copy:
+          "I love and hate the gym. Well it might be I love the gym but hate my physique. Could be body dysmorphia or that I really am just small. I'd say the former. Anyways, throughout my senior high school days, I'd always workout at home at times where the academic load wasn't that heavy, for the most part atleast. I didn't really care much, I'd still train despite having exams the next day/morning. Recently, I have started going to a local gym and training is the one thing I look forward to in my days.\n\nDue to this, I am pretty interested in what applications computer science has in the field of physical fitness. I have been updating myself in upcoming and new researches of the subject, especially when it comes to what data has been pulled and interpretations of it."
+      }
+    ]
   },
   {
     title: "Values",
-    copy:
-      "Philosophically, I would label myelf absurdist nihilist. I do not believe in an absolute truth. What I do believe in is my being. I move in my favor and create situations favorable to me.\n\nOf all the traits, I value resolve the most. I truly believe that when one does something, they should do it with their all."
+    images: [
+      {
+        src: "/images/about/visual-novel.png",
+        alt: "A warm-toned visual novel scene",
+        width: 1920,
+        height: 1080,
+        placement: "after-resolve"
+      },
+      {
+        src: "/images/about/resolve-portrait.png",
+        alt: "An illustrated smiling character with green eyes and a light-colored coat",
+        width: 720,
+        height: 1280,
+        placement: "after-resolve"
+      }
+    ],
+    sections: [
+      {
+        heading: "Resolve",
+        copy:
+          "Philosophically, I would label myelf absurdist nihilist. I do not believe in an absolute truth. What I do believe in is my being. I move in my favor and create situations favorable to me.\n\nOf all the traits, I value resolve the most. I truly believe that when one does something, they should do it with their all."
+      }
+    ]
   }
 ];
 
