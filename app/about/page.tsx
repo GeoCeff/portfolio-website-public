@@ -1,9 +1,10 @@
-import { ArrowDownToLine, ArrowLeft, ChevronDown, Github, Instagram, Linkedin, Mail } from "lucide-react";
+import { ArrowLeft, ChevronDown, Github, Instagram, Linkedin, Mail } from "lucide-react";
 import AnimatedHeroTitle from "../AnimatedHeroTitle";
 import Image from "next/image";
 import PortraitOrbit from "../PortraitOrbit";
 import { sitePath } from "../paths";
 import ScrollRail from "../ScrollRail";
+import SiteHeader from "../SiteHeader";
 import { personalTopics, profile } from "../siteData";
 import { aboutPosts } from "./posts";
 
@@ -12,22 +13,7 @@ export default function AboutPage() {
     <main className="site-shell about-page">
       <div className="aurora" aria-hidden="true" />
       <div className="texture" aria-hidden="true" />
-      <header className="topbar">
-        <a className="logo" href={sitePath("/#home")} aria-label="Home">
-          {profile.monogram}
-        </a>
-        <nav className="nav" aria-label="Primary navigation">
-          <a href={sitePath("/#home")}>Home</a>
-          <a className="active" href={sitePath("/about")}>About</a>
-          <a href={sitePath("/#projects")}>Projects</a>
-          <a href={sitePath("/skills")}>Skills</a>
-          <a href={sitePath("/contact")}>Contact</a>
-        </nav>
-        <a className="resume" href={sitePath(profile.resumeHref)} download>
-          <span>Resume</span>
-          <ArrowDownToLine size={16} />
-        </a>
-      </header>
+      <SiteHeader active="about" />
 
       <ScrollRail />
       <aside className="side-rail right" aria-label="Social links">
@@ -47,7 +33,7 @@ export default function AboutPage() {
         </div>
       </aside>
 
-      <section className="about-hero" data-reveal>
+      <section className="about-hero" data-motion data-reveal>
         <div className="about-hero-copy">
           <a className="back-link" href={sitePath("/#about")}>
             <ArrowLeft size={17} />
@@ -67,7 +53,13 @@ export default function AboutPage() {
         </div>
 
         <div className="about-portrait" aria-label={profile.portraitAlt}>
-          <PortraitOrbit alt={profile.portraitAlt} fallback={profile.monogram} slides={profile.portraitSlides} />
+          <PortraitOrbit
+            alt={profile.portraitAlt}
+            fallback={profile.monogram}
+            presence="online"
+            previewRail
+            slides={profile.portraitSlides}
+          />
         </div>
       </section>
 
@@ -90,6 +82,7 @@ export default function AboutPage() {
                       className={image.height > image.width ? "personal-topic-image--portrait" : undefined}
                       height={image.height}
                       key={image.src}
+                      sizes="(max-width: 780px) calc(100vw - 76px), 520px"
                       src={sitePath(image.src)}
                       width={image.width}
                     />
@@ -165,6 +158,7 @@ export default function AboutPage() {
                           <Image
                             alt={block.alt}
                             height={block.height}
+                            sizes="(max-width: 780px) calc(100vw - 76px), 680px"
                             src={sitePath(block.src)}
                             width={block.width}
                           />

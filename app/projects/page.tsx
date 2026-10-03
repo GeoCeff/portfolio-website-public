@@ -1,9 +1,10 @@
-import { ArrowDownToLine, ArrowLeft, ArrowRight, Github, Instagram, Linkedin, Mail } from "lucide-react";
+import { ArrowLeft, ArrowRight, Github, Instagram, Linkedin, Mail } from "lucide-react";
 import AnimatedHeroTitle from "../AnimatedHeroTitle";
 import Image from "next/image";
 import { sitePath } from "../paths";
 import { openSourceHighlights, portfolioProjects, projectNotes } from "../projectData";
 import ScrollRail from "../ScrollRail";
+import SiteHeader from "../SiteHeader";
 import { profile } from "../siteData";
 
 const gallerySlots = ["Main image", "Left detail", "Right detail"];
@@ -13,22 +14,7 @@ export default function ProjectsPage() {
     <main className="site-shell projects-page">
       <div className="aurora" aria-hidden="true" />
       <div className="texture" aria-hidden="true" />
-      <header className="topbar">
-        <a className="logo" href={sitePath("/#home")} aria-label="Home">
-          {profile.monogram}
-        </a>
-        <nav className="nav" aria-label="Primary navigation">
-          <a href={sitePath("/#home")}>Home</a>
-          <a href={sitePath("/about")}>About</a>
-          <a className="active" href={sitePath("/projects")}>Projects</a>
-          <a href={sitePath("/skills")}>Skills</a>
-          <a href={sitePath("/contact")}>Contact</a>
-        </nav>
-        <a className="resume" href={sitePath(profile.resumeHref)} download>
-          <span>Resume</span>
-          <ArrowDownToLine size={16} />
-        </a>
-      </header>
+      <SiteHeader active="projects" />
 
       <ScrollRail />
       <aside className="side-rail right" aria-label="Social links">
@@ -48,7 +34,7 @@ export default function ProjectsPage() {
         </div>
       </aside>
 
-      <section className="projects-hero" data-reveal>
+      <section className="projects-hero" data-motion data-reveal>
         <a className="back-link" href={sitePath("/#projects")}>
           <ArrowLeft size={17} />
           <span>Back to portfolio</span>
@@ -157,6 +143,7 @@ export default function ProjectsPage() {
                   alt={project.imageAlt}
                   className="project-shot"
                   height={420}
+                  sizes="(max-width: 780px) calc(100vw - 48px), (max-width: 980px) calc(100vw - 96px), 40vw"
                   src={sitePath(project.image)}
                   width={640}
                 />
@@ -183,6 +170,7 @@ export default function ProjectsPage() {
                             alt={alt ?? `${project.title} ${slotLabel} screenshot`}
                             className="project-shot"
                             height={180}
+                            sizes="(max-width: 780px) 30vw, 280px"
                             src={sitePath(image)}
                             width={280}
                           />

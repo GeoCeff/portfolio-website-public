@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { readFileSync } from "node:fs";
-import path from "node:path";
 import "@fontsource/montserrat/300.css";
 import "@fontsource/montserrat/400.css";
 import "@fontsource/montserrat/500.css";
@@ -39,8 +37,6 @@ export const metadata: Metadata = {
   }
 };
 
-const globalStyles = readFileSync(path.join(process.cwd(), "app", "globals.css"), "utf8");
-
 export default function RootLayout({
   children
 }: Readonly<{
@@ -48,12 +44,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <style dangerouslySetInnerHTML={{ __html: globalStyles }} />
-      </head>
       <body
         style={{
-          "--hero-background": `url("${sitePath("/images/hero-forest-background.png")}")`
+          "--hero-background": `url("${sitePath("/images/hero-forest-background.webp")}")`
         } as React.CSSProperties}
       >
         <InteractionLayer />

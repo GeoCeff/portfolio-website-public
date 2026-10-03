@@ -1,5 +1,4 @@
 import {
-  ArrowDownToLine,
   ArrowRight,
   ArrowUpRight,
   Github,
@@ -18,16 +17,9 @@ import { sitePath } from "./paths";
 import { portfolioProjects } from "./projectData";
 import ScrollRail from "./ScrollRail";
 import SectionTracker from "./SectionTracker";
+import SiteHeader from "./SiteHeader";
 import { currentFocus, education, experiences, profile } from "./siteData";
 import ToolkitMarquee from "./ToolkitMarquee";
-
-const navItems = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "/about" },
-  { label: "Projects", href: "/projects" },
-  { label: "Skills", href: "/skills" },
-  { label: "Contact", href: "/contact" }
-];
 
 const featuredProjects = portfolioProjects.slice(0, 6);
 
@@ -38,22 +30,7 @@ export default function Home() {
     <main className="site-shell">
       <div className="aurora" aria-hidden="true" />
       <div className="texture" aria-hidden="true" />
-      <header className="topbar">
-        <a className="logo" href="#home" aria-label="Home">
-          {profile.monogram}
-        </a>
-        <nav className="nav" aria-label="Primary navigation">
-          {navItems.map((item, index) => (
-            <a key={item.label} className={index === 0 ? "active" : ""} href={sitePath(item.href)}>
-              {item.label}
-            </a>
-          ))}
-        </nav>
-        <a className="resume" href={sitePath(profile.resumeHref)} download>
-          <span>Resume</span>
-          <ArrowDownToLine size={16} />
-        </a>
-      </header>
+      <SiteHeader active="home" />
 
       <ScrollRail />
       <aside className="side-rail right" aria-label="Social links">
@@ -78,7 +55,7 @@ export default function Home() {
         <span />
       </aside>
 
-      <section id="home" className="hero">
+      <section id="home" className="hero" data-motion>
         <div className="hero-copy" data-reveal>
           <p className="hello"><span /> Hello, I&apos;m</p>
           <div className="route-title-row">
@@ -179,6 +156,7 @@ export default function Home() {
                     alt={project.imageAlt}
                     className="project-shot"
                     height={420}
+                    sizes="(max-width: 780px) calc(100vw - 48px), (max-width: 1180px) 45vw, 380px"
                     src={sitePath(project.image)}
                     width={640}
                   />
@@ -202,6 +180,7 @@ export default function Home() {
                             alt={alt ?? `${project.title} ${slotLabel} screenshot`}
                             className="project-shot"
                             height={150}
+                            sizes="(max-width: 780px) 28vw, 110px"
                             src={sitePath(image)}
                             width={220}
                           />

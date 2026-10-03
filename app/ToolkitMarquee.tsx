@@ -50,7 +50,7 @@ const groups = [
 
 export default function ToolkitMarquee() {
   return (
-    <div className="toolkit-groups">
+    <div className="toolkit-groups" data-motion>
       {groups.map((group) => (
         <section className="toolkit-group" key={group.title} aria-label={group.title}>
           <h3>{group.title}</h3>

@@ -1,66 +1,56 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import type { CSSProperties } from "react";
-
-type Spark = {
-  id: number;
-  x: number;
-  y: number;
-};
+import { useEffect } from "react";
 
 export default function InteractionLayer() {
-  const [sparks, setSparks] = useState<Spark[]>([]);
-
   useEffect(() => {
-    let frame = 0;
+    const root = document.documentElement;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const motionScopes = Array.from(document.querySelectorAll<HTMLElement>("[data-motion]"));
+    const scopeVisibility = new Map<HTMLElement, boolean>();
 
-    const setPointer = (event: PointerEvent) => {
-      window.cancelAnimationFrame(frame);
-      frame = window.requestAnimationFrame(() => {
-        document.documentElement.style.setProperty("--pointer-x", `${event.clientX}px`);
-        document.documentElement.style.setProperty("--pointer-y", `${event.clientY}px`);
+    const setScopePlayback = (scope: HTMLElement, active: boolean) => {
+      scope.classList.toggle("is-motion-visible", active);
+      scope.querySelectorAll<SVGSVGElement>("svg").forEach((svg) => {
+        if (active && !reducedMotion.matches) svg.unpauseAnimations();
+        else svg.pauseAnimations();
       });
     };
 
-    const press = (event: PointerEvent) => {
-      document.documentElement.classList.add("is-pressing");
-      const id = Date.now();
-      setSparks((items) => [...items.slice(-5), { id, x: event.clientX, y: event.clientY }]);
-      window.setTimeout(() => setSparks((items) => items.filter((item) => item.id !== id)), 650);
+    const syncPageVisibility = () => {
+      root.classList.toggle("page-hidden", document.hidden);
+      motionScopes.forEach((scope) => {
+        setScopePlayback(scope, !document.hidden && scopeVisibility.get(scope) !== false);
+      });
     };
 
-    const release = () => document.documentElement.classList.remove("is-pressing");
+    motionScopes.forEach((scope) => {
+      const rect = scope.getBoundingClientRect();
+      scopeVisibility.set(scope, rect.bottom > 0 && rect.top < window.innerHeight);
+    });
 
-    document.documentElement.classList.add("motion-ready");
-    window.addEventListener("pointermove", setPointer, { passive: true });
-    window.addEventListener("pointerdown", press, { passive: true });
-    window.addEventListener("pointerup", release, { passive: true });
-    window.addEventListener("pointercancel", release, { passive: true });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const scope = entry.target as HTMLElement;
+        scopeVisibility.set(scope, entry.isIntersecting);
+        setScopePlayback(scope, entry.isIntersecting && !document.hidden);
+      });
+    });
+    motionScopes.forEach((scope) => observer.observe(scope));
+
+    root.classList.add("motion-ready");
+    reducedMotion.addEventListener("change", syncPageVisibility);
+    document.addEventListener("visibilitychange", syncPageVisibility);
+    syncPageVisibility();
 
     return () => {
-      window.cancelAnimationFrame(frame);
-      document.documentElement.classList.remove("motion-ready", "is-pressing");
-      window.removeEventListener("pointermove", setPointer);
-      window.removeEventListener("pointerdown", press);
-      window.removeEventListener("pointerup", release);
-      window.removeEventListener("pointercancel", release);
+      observer.disconnect();
+      reducedMotion.removeEventListener("change", syncPageVisibility);
+      document.removeEventListener("visibilitychange", syncPageVisibility);
+      motionScopes.forEach((scope) => scope.classList.remove("is-motion-visible"));
+      root.classList.remove("motion-ready", "page-hidden");
     };
   }, []);
 
-  return (
-    <div className="interaction-layer" aria-hidden="true">
-      <span className="pointer-flare" />
-      <span className="signal-shard shard-one" />
-      <span className="signal-shard shard-two" />
-      <span className="signal-shard shard-three" />
-      {sparks.map((spark) => (
-        <span
-          className="click-spark"
-          key={spark.id}
-          style={{ "--spark-x": `${spark.x}px`, "--spark-y": `${spark.y}px` } as CSSProperties}
-        />
-      ))}
-    </div>
-  );
+  return null;
 }

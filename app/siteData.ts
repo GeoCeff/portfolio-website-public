@@ -10,20 +10,20 @@ export const profile = {
     "I build local-first tools, data interfaces, and game systems that turn technical ideas into usable software.",
   heroQuote: "Practical systems, shipped with receipts.",
   portraitAlt: "Portrait of Geo Ceff Vinzr H. Gabaisen",
-  portraitSrc: "/images/portfolio-image.jpg",
+  portraitSrc: "/images/portfolio-image.webp",
   portraitSlides: [
     {
-      src: "/images/portfolio-image.jpg",
+      src: "/images/portfolio-image.webp",
       label: "Formal portrait",
       detail: "Current public profile image"
     },
     {
-      src: "/images/portrait-casual.png",
+      src: "/images/portrait-casual.webp",
       label: "Casual portrait",
       detail: "Casual photo with headphones"
     },
     {
-      src: "/images/portrait-red-shirt.jpg",
+      src: "/images/portrait-red-shirt.webp",
       label: "Red shirt portrait",
       detail: "Portrait in a custom red shirt"
     }
@@ -145,17 +145,17 @@ export const personalTopics = [
         placement: "end"
       },
       {
-        src: "/images/about/space-marine-2.png",
+        src: "/images/about/space-marine-2.webp",
         alt: "A Space Marine in a launch bay",
-        width: 1917,
-        height: 1078,
+        width: 1600,
+        height: 900,
         placement: "after-games"
       },
       {
-        src: "/images/about/roblox-dungeon.png",
+        src: "/images/about/roblox-dungeon.webp",
         alt: "A turn-based Roblox dungeon battle",
-        width: 1917,
-        height: 1073,
+        width: 1600,
+        height: 896,
         placement: "before-music"
       }
     ],
@@ -176,10 +176,10 @@ export const personalTopics = [
     title: "Passions",
     images: [
       {
-        src: "/images/about/gym-progress.jpg",
+        src: "/images/about/gym-progress.webp",
         alt: "Geo Ceff taking a progress photo at the gym",
-        width: 4096,
-        height: 3072,
+        width: 1600,
+        height: 1200,
         placement: "end"
       }
     ],
@@ -195,14 +195,14 @@ export const personalTopics = [
     title: "Values",
     images: [
       {
-        src: "/images/about/visual-novel.png",
+        src: "/images/about/visual-novel.webp",
         alt: "A warm-toned visual novel scene",
-        width: 1920,
-        height: 1080,
+        width: 1600,
+        height: 900,
         placement: "after-resolve"
       },
       {
-        src: "/images/about/resolve-portrait.png",
+        src: "/images/about/resolve-portrait.webp",
         alt: "An illustrated smiling character with green eyes and a light-colored coat",
         width: 720,
         height: 1280,

@@ -1,10 +1,11 @@
 "use client";
 
 import type { FormEvent } from "react";
-import { ArrowDownToLine, ArrowLeft, ArrowUpRight, Code2, Github, Instagram, Linkedin, Mail, MapPin } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Code2, Github, Instagram, Linkedin, Mail, MapPin } from "lucide-react";
 import AnimatedHeroTitle from "../AnimatedHeroTitle";
 import { sitePath } from "../paths";
 import ScrollRail from "../ScrollRail";
+import SiteHeader from "../SiteHeader";
 import { profile } from "../siteData";
 
 const contactItems = [
@@ -35,20 +36,7 @@ export default function ContactPage() {
     <main className="site-shell contact-page">
       <div className="aurora" aria-hidden="true" />
       <div className="texture" aria-hidden="true" />
-      <header className="topbar">
-        <a className="logo" href={sitePath("/#home")} aria-label="Home">{profile.monogram}</a>
-        <nav className="nav" aria-label="Primary navigation">
-          <a href={sitePath("/#home")}>Home</a>
-          <a href={sitePath("/about")}>About</a>
-          <a href={sitePath("/projects")}>Projects</a>
-          <a href={sitePath("/skills")}>Skills</a>
-          <a className="active" href={sitePath("/contact")}>Contact</a>
-        </nav>
-        <a className="resume" href={sitePath(profile.resumeHref)} download>
-          <span>Resume</span>
-          <ArrowDownToLine size={16} />
-        </a>
-      </header>
+      <SiteHeader active="contact" />
 
       <ScrollRail />
       <aside className="side-rail right" aria-label="Social links">
@@ -60,7 +48,7 @@ export default function ContactPage() {
         </div>
       </aside>
 
-      <section className="contact-hero" data-reveal>
+      <section className="contact-hero" data-motion data-reveal>
         <a className="back-link" href={sitePath("/#home")}>
           <ArrowLeft size={17} />
           <span>Back to portfolio</span>
@@ -113,9 +101,13 @@ export default function ContactPage() {
             <label>Message<textarea name="message" placeholder="A little about your idea..." required rows={5} /></label>
             <button className="button primary" type="submit">
               <span>Open Email Draft</span>
-              <Mail size={16} />
+              <Mail aria-hidden="true" size={16} />
             </button>
             <p className="contact-form-note">Opens your email app with a draft. Nothing is sent from this page.</p>
+            <label className="contact-email-fallback">
+              No mail app? Copy this address
+              <input aria-label="Email address to copy" readOnly value={profile.email} />
+            </label>
           </form>
         </article>
 

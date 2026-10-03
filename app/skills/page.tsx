@@ -1,7 +1,8 @@
-import { ArrowDownToLine, ArrowLeft, CodeXml, Database, Github, Instagram, Linkedin, Mail, Wrench } from "lucide-react";
+import { ArrowLeft, CodeXml, Database, Github, Instagram, Linkedin, Mail, Wrench } from "lucide-react";
 import AnimatedHeroTitle from "../AnimatedHeroTitle";
 import { sitePath } from "../paths";
 import ScrollRail from "../ScrollRail";
+import SiteHeader from "../SiteHeader";
 import { profile, skillGroups } from "../siteData";
 import ToolkitMarquee from "../ToolkitMarquee";
 import SkillsToolboxBody from "../SkillsToolboxBody";
@@ -11,20 +12,7 @@ export default function SkillsPage() {
     <main className="site-shell skills-page">
       <div className="aurora" aria-hidden="true" />
       <div className="texture" aria-hidden="true" />
-      <header className="topbar">
-        <a className="logo" href={sitePath("/#home")} aria-label="Home">{profile.monogram}</a>
-        <nav className="nav" aria-label="Primary navigation">
-          <a href={sitePath("/#home")}>Home</a>
-          <a href={sitePath("/about")}>About</a>
-          <a href={sitePath("/projects")}>Projects</a>
-          <a className="active" href={sitePath("/skills")}>Skills</a>
-          <a href={sitePath("/contact")}>Contact</a>
-        </nav>
-        <a className="resume" href={sitePath(profile.resumeHref)} download>
-          <span>Resume</span>
-          <ArrowDownToLine size={16} />
-        </a>
-      </header>
+      <SiteHeader active="skills" />
 
       <ScrollRail />
       <aside className="side-rail right" aria-label="Social links">
@@ -36,7 +24,7 @@ export default function SkillsPage() {
         </div>
       </aside>
 
-      <section className="skills-hero" data-reveal>
+      <section className="skills-hero" data-motion data-reveal>
         <a className="back-link" href={sitePath("/#skills")}>
           <ArrowLeft size={17} />
           <span>Back to portfolio</span>

@@ -21,6 +21,7 @@ export default function EducationLogo({ alt, fallback, src }: EducationLogoProps
           alt=""
           aria-hidden="true"
           height={96}
+          sizes="96px"
           src={sitePath(imageSrc)}
           width={96}
           onError={() => setFailed(true)}

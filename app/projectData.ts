@@ -21,21 +21,21 @@ export const portfolioProjects = [
     stack: ["Godot 4.6", "C++", "GDExtension", "GDScript", "Game Systems"],
     href: "https://github.com/GeoCeff/perk-the-star",
     liveHref: "",
-    image: "/images/projects/perk-the-star.png",
+    image: "/images/projects/perk-the-star.webp",
     imageAlt: "Perk the Star main menu preview",
     screenshots: [
       {
-        image: "/images/projects/perk-the-star-gameplay.png",
+        image: "/images/projects/perk-the-star-gameplay.webp",
         imageAlt: "Perk the Star live orbital-defense gameplay with mission HUD and tower tray",
         label: "Gameplay"
       },
       {
-        image: "/images/projects/perk-the-star-tech-tree.png",
+        image: "/images/projects/perk-the-star-tech-tree.webp",
         imageAlt: "Perk the Star Sol Tech Tree showing six tower upgrade paths",
         label: "Tech Tree"
       },
       {
-        image: "/images/projects/perk-the-star-achievements.png",
+        image: "/images/projects/perk-the-star-achievements.webp",
         imageAlt: "Perk the Star Constellation of Valor achievements and medals screen",
         label: "Achievements"
       }
@@ -254,7 +254,7 @@ export const portfolioProjects = [
     stack: ["Next.js", "React", "TypeScript", "CSS", "GitHub Pages"],
     href: "https://github.com/GeoCeff/portfolio-website",
     liveHref: "",
-    image: "/images/projects/portfolio-website.png",
+    image: "/images/projects/portfolio-website.webp",
     imageAlt: "Personal portfolio website screenshot",
     imageNote: "",
     className: "portfolio"
@@ -281,7 +281,7 @@ export const portfolioProjects = [
     stack: ["Godot 4.6", "C++", "GDExtension", "Simulation", "Procedural Maps"],
     href: "https://github.com/GeoCeff/dost-nxt-lvl-bagyo-command",
     liveHref: "",
-    image: "/images/projects/bagyo-command.png",
+    image: "/images/projects/bagyo-command.webp",
     imageAlt: "Bagyo Command disaster-response city-builder preview",
     imageNote: "",
     className: "circuit"

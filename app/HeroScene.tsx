@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import * as THREE from "three";
+import type { Vector3 } from "three";
 
 export default function HeroScene() {
   const hostRef = useRef<HTMLDivElement>(null);
@@ -10,15 +10,27 @@ export default function HeroScene() {
     const host = hostRef.current;
     if (!host) return;
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
-    camera.position.set(0, 0, 8);
+    let cancelled = false;
+    let dispose: (() => void) | undefined;
 
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.domElement.setAttribute("aria-hidden", "true");
-    host.appendChild(renderer.domElement);
+    void import("three").then((THREE) => {
+      if (cancelled) return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+      camera.position.set(0, 0, 8);
+
+      let renderer: InstanceType<typeof THREE.WebGLRenderer>;
+      try {
+        renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      } catch (error) {
+        host.dataset.fallback = "true";
+        console.warn("WebGL is unavailable; using the static hero artwork.", error);
+        return;
+      }
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.domElement.setAttribute("aria-hidden", "true");
+      host.appendChild(renderer.domElement);
 
     const system = new THREE.Group();
     system.scale.setScalar(0.72);
@@ -45,7 +57,7 @@ export default function HeroScene() {
     const cockpit = new THREE.Group();
     system.add(cockpit);
 
-    const makeLine = (from: THREE.Vector3, to: THREE.Vector3) => {
+    const makeLine = (from: Vector3, to: Vector3) => {
       const geometry = new THREE.BufferGeometry().setFromPoints([from, to]);
       const line = new THREE.Line(geometry, reticleMaterial);
       cockpit.add(line);
@@ -107,15 +119,16 @@ export default function HeroScene() {
     refreshColors();
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const coarsePointer = window.matchMedia("(hover: none), (pointer: coarse)");
     let scrollDepth = 0;
 
     const resize = () => {
       const { width, height } = host.getBoundingClientRect();
       if (!width || !height) return;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.innerWidth < 780 ? 1.25 : 1.5));
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      if (reducedMotion.matches) renderer.render(scene, camera);
     };
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(host);
@@ -124,16 +137,24 @@ export default function HeroScene() {
     const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
     const recolor = () => {
       refreshColors();
-      if (reducedMotion.matches) renderer.render(scene, camera);
+      if (reducedMotion.matches && !document.hidden) renderer.render(scene, camera);
     };
     colorScheme.addEventListener("change", recolor);
 
     const pointer = new THREE.Vector2();
+    let pointerListening = false;
     const move = (event: PointerEvent) => {
-      if (reducedMotion.matches) return;
+      if (reducedMotion.matches || document.hidden) return;
       pointer.set(event.clientX / window.innerWidth - 0.5, event.clientY / window.innerHeight - 0.5);
     };
-    window.addEventListener("pointermove", move, { passive: true });
+    const syncPointer = () => {
+      const shouldListen = !coarsePointer.matches && !reducedMotion.matches;
+      if (shouldListen === pointerListening) return;
+      pointerListening = shouldListen;
+      if (shouldListen) window.addEventListener("pointermove", move, { passive: true });
+      else window.removeEventListener("pointermove", move);
+    };
+    syncPointer();
 
     const setScrollDepth = () => {
       scrollDepth = Math.min(window.scrollY / Math.max(window.innerHeight, 1), 1);
@@ -143,8 +164,11 @@ export default function HeroScene() {
 
     const startedAt = performance.now();
     let frame = 0;
-    let visible = true;
-    const draw = () => {
+    const initialBounds = host.getBoundingClientRect();
+    let visible = initialBounds.bottom > 0 && initialBounds.top < window.innerHeight;
+    const shouldAnimate = () => !reducedMotion.matches && visible && !document.hidden;
+
+    const renderFrame = () => {
       const elapsed = (performance.now() - startedAt) / 1000;
       if (!reducedMotion.matches) {
         system.rotation.x += (pointer.y * 0.35 - system.rotation.x) * 0.025;
@@ -171,23 +195,51 @@ export default function HeroScene() {
       }
 
       renderer.render(scene, camera);
-      if (!reducedMotion.matches && visible) frame = window.requestAnimationFrame(draw);
     };
-    draw();
+
+    const draw = () => {
+      frame = 0;
+      renderFrame();
+      if (shouldAnimate()) frame = window.requestAnimationFrame(draw);
+    };
+
+    const syncPlayback = () => {
+      if (shouldAnimate()) {
+        if (!frame) frame = window.requestAnimationFrame(draw);
+      } else {
+        window.cancelAnimationFrame(frame);
+        frame = 0;
+        if (visible && !document.hidden) renderFrame();
+      }
+    };
+
+    renderFrame();
+    host.dataset.ready = "true";
+    delete host.dataset.fallback;
 
     const visibilityObserver = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting === visible) return;
       visible = entry.isIntersecting;
-      if (visible) draw();
-      else window.cancelAnimationFrame(frame);
+      syncPlayback();
     });
     visibilityObserver.observe(host);
 
-    return () => {
+    const syncMotionPreference = () => {
+      syncPointer();
+      syncPlayback();
+    };
+    reducedMotion.addEventListener("change", syncMotionPreference);
+    coarsePointer.addEventListener("change", syncPointer);
+    document.addEventListener("visibilitychange", syncPlayback);
+    syncPlayback();
+
+    dispose = () => {
       window.cancelAnimationFrame(frame);
       visibilityObserver.disconnect();
-      window.removeEventListener("pointermove", move);
+      if (pointerListening) window.removeEventListener("pointermove", move);
       window.removeEventListener("scroll", setScrollDepth);
+      reducedMotion.removeEventListener("change", syncMotionPreference);
+      coarsePointer.removeEventListener("change", syncPointer);
+      document.removeEventListener("visibilitychange", syncPlayback);
       colorScheme.removeEventListener("change", recolor);
       resizeObserver.disconnect();
       scene.traverse((object) => {
@@ -197,7 +249,19 @@ export default function HeroScene() {
       });
       [ink, accent, accentLine, particles, reticleMaterial].forEach((material) => material.dispose());
       renderer.dispose();
+      renderer.forceContextLoss();
       renderer.domElement.remove();
+      delete host.dataset.ready;
+      delete host.dataset.fallback;
+    };
+    }).catch((error) => {
+      if (!cancelled) host.dataset.fallback = "true";
+      console.warn("Unable to load the 3D scene; using the static hero artwork.", error);
+    });
+
+    return () => {
+      cancelled = true;
+      dispose?.();
     };
   }, []);
 
