@@ -141,22 +141,19 @@ export const personalTopics = [
         src: "/images/about/liked-music.png",
         alt: "Geo Ceff's YouTube Music liked playlist",
         width: 415,
-        height: 751,
-        placement: "end"
+        height: 751
       },
       {
         src: "/images/about/space-marine-2.webp",
         alt: "A Space Marine in a launch bay",
         width: 1600,
-        height: 900,
-        placement: "after-games"
+        height: 900
       },
       {
         src: "/images/about/roblox-dungeon.webp",
         alt: "A turn-based Roblox dungeon battle",
         width: 1600,
-        height: 896,
-        placement: "before-music"
+        height: 896
       }
     ],
     sections: [
@@ -177,10 +174,9 @@ export const personalTopics = [
     images: [
       {
         src: "/images/about/gym-progress.webp",
-        alt: "Geo Ceff taking a progress photo at the gym",
+        alt: "Gym session",
         width: 1600,
-        height: 1200,
-        placement: "end"
+        height: 1200
       }
     ],
     sections: [
@@ -196,17 +192,15 @@ export const personalTopics = [
     images: [
       {
         src: "/images/about/visual-novel.webp",
-        alt: "A warm-toned visual novel scene",
+        alt: "Until Then - Mark Borja",
         width: 1600,
-        height: 900,
-        placement: "after-resolve"
+        height: 900
       },
       {
         src: "/images/about/resolve-portrait.webp",
-        alt: "An illustrated smiling character with green eyes and a light-colored coat",
+        alt: "Mushoku Tensei: Jobless Reincarnation - Rudeus Greyrat",
         width: 720,
-        height: 1280,
-        placement: "after-resolve"
+        height: 1280
       }
     ],
     sections: [

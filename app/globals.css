@@ -4207,7 +4207,8 @@ h1 {
 .personal-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: start;
+  /* ponytail: native grid keeps the cards equal as their copy wraps. */
+  align-items: stretch;
   gap: var(--space-5);
 }
 
@@ -4234,26 +4235,194 @@ h1 {
 
 .personal-topic-images {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  aspect-ratio: 3 / 2;
+  flex-shrink: 0;
+  min-height: 0;
   gap: 8px;
-  margin: 18px 0;
+  margin-top: auto;
+}
+
+.personal-topic-images[data-count="2"] {
+  grid-template-rows: auto 216px;
+  aspect-ratio: auto;
+}
+
+.personal-topic-images[data-count="3"] {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+
+.personal-topic-images[data-count="3"] .personal-image-button:first-child {
+  grid-row: span 2;
+}
+
+.personal-topic-images[data-count="2"] .personal-image-button:first-child,
+.personal-topic-images[data-count="2"] .personal-image-button:first-child img {
+  height: auto;
+}
+
+.personal-topic-images[data-count="2"] .personal-image-button:last-child {
+  justify-self: center;
+  width: auto;
+  aspect-ratio: 9 / 16;
+  max-width: 100%;
+}
+
+.personal-image-button {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.personal-image-button:hover img {
+  border-color: var(--accent);
+}
+
+.personal-image-button:focus-visible,
+.personal-viewer-control:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
 }
 
 .personal-topic-images img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  object-fit: cover;
   border: 1px solid rgba(105, 169, 255, 0.28);
   border-radius: var(--radius-sm);
   background: var(--panel-strong);
 }
 
-.personal-topic > .personal-topic-images:first-child {
-  margin-top: 0;
+.personal-viewer {
+  width: min(1100px, calc(100vw - 32px));
+  height: min(850px, calc(100dvh - 32px));
+  max-width: none;
+  max-height: none;
+  padding: 16px;
+  border: 1px solid rgba(105, 169, 255, 0.45);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  background: #0e1725;
+  box-shadow: 0 24px 90px rgba(0, 0, 0, 0.65);
 }
 
-.personal-topic-images .personal-topic-image--portrait {
-  width: min(100%, 210px);
-  margin-inline: auto;
+.personal-viewer[open] {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 14px;
+}
+
+.personal-viewer::backdrop {
+  background: rgba(3, 8, 17, 0.88);
+  backdrop-filter: blur(8px);
+}
+
+body:has(.personal-viewer[open]) {
+  overflow: hidden;
+}
+
+.personal-viewer-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.personal-viewer-header h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.personal-viewer-count {
+  margin-left: auto;
+  color: var(--muted);
+  font: 600 12px var(--font-mono);
+  white-space: nowrap;
+}
+
+.personal-viewer-figure {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 12px;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+}
+
+.personal-viewer-stage {
+  position: relative;
+  min-height: 0;
+}
+
+.personal-viewer-stage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding-inline: 64px;
+  object-fit: contain;
+}
+
+.personal-viewer-figure figcaption {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.personal-viewer-control {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(105, 169, 255, 0.45);
+  border-radius: 50%;
+  color: var(--text);
+  background: rgba(13, 26, 46, 0.92);
+  box-shadow: 0 0 16px rgba(57, 139, 255, 0.12);
+  cursor: pointer;
+}
+
+.personal-viewer-control:hover {
+  border-color: var(--accent);
+  background: #183451;
+  box-shadow: 0 0 22px rgba(57, 139, 255, 0.3);
+}
+
+.personal-viewer-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.personal-viewer-arrow--previous {
+  left: 0;
+}
+
+.personal-viewer-arrow--next {
+  right: 0;
+}
+
+@media (max-width: 780px) {
+  .personal-viewer {
+    padding: 12px;
+  }
+
+  .personal-viewer-stage img {
+    padding-inline: 0;
+  }
 }
 
 .personal-topic h3 {
@@ -4265,6 +4434,7 @@ h1 {
 .personal-topic-copy {
   display: grid;
   gap: 18px;
+  margin-bottom: 18px;
 }
 
 .personal-topic-section h4 {

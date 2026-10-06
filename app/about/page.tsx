@@ -5,8 +5,9 @@ import PortraitOrbit from "../PortraitOrbit";
 import { sitePath } from "../paths";
 import ScrollRail from "../ScrollRail";
 import SiteHeader from "../SiteHeader";
-import { personalTopics, profile } from "../siteData";
+import { profile } from "../siteData";
 import { aboutPosts } from "./posts";
+import PersonalTopics from "./PersonalTopics";
 
 export default function AboutPage() {
   return (
@@ -69,49 +70,7 @@ export default function AboutPage() {
           <h2>01 - beyond the projects</h2>
           <span />
         </div>
-        <div className="personal-grid">
-          {personalTopics.map((topic) => {
-            const imagesAt = (placement: string) => {
-              const images = topic.images.filter((image) => image.placement === placement);
-
-              return images.length ? (
-                <div className="personal-topic-images">
-                  {images.map((image) => (
-                    <Image
-                      alt={image.alt}
-                      className={image.height > image.width ? "personal-topic-image--portrait" : undefined}
-                      height={image.height}
-                      key={image.src}
-                      sizes="(max-width: 780px) calc(100vw - 76px), 520px"
-                      src={sitePath(image.src)}
-                      width={image.width}
-                    />
-                  ))}
-                </div>
-              ) : null;
-            };
-
-            return (
-              <article className="personal-topic" key={topic.title} data-reveal>
-                {imagesAt("top")}
-                <h3>{topic.title}</h3>
-                <div className="personal-topic-copy">
-                  {topic.sections.map((section) => (
-                    <section className="personal-topic-section" key={section.heading}>
-                      {imagesAt(`before-${section.heading.toLowerCase()}`)}
-                      <h4>{section.heading}</h4>
-                      {section.copy.split("\n\n").map((paragraph) => (
-                        <p key={paragraph}>{paragraph}</p>
-                      ))}
-                      {imagesAt(`after-${section.heading.toLowerCase()}`)}
-                    </section>
-                  ))}
-                </div>
-                {imagesAt("end")}
-              </article>
-            );
-          })}
-        </div>
+        <PersonalTopics />
       </section>
 
       <section className="writing-section" id="writing" data-reveal>
